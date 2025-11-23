@@ -1,0 +1,190 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-category-mgr" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{text_add_subcategories}}</label>
+                        <div class="col-sm-10">
+                            <label><input type="radio" name="category_mgr_add_subcategories" value="1" {% if category_mgr_add_subcategories %}checked="checked"{% endif %}>{{text_yes}}</label>
+                            <label><input type="radio" name="category_mgr_add_subcategories" value="0" {% if not category_mgr_add_subcategories %}checked="checked"{% endif %}>{{text_no}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{text_unlinked_products_only}}</label>
+                        <div class="col-sm-10">
+                            <label><input type="radio" name="category_mgr_unlinked_products_only" value="1" {% if category_mgr_unlinked_products_only %}checked="checked"{% endif %}>{{text_yes}}</label>
+                            <label><input type="radio" name="category_mgr_unlinked_products_only" value="0" {% if not category_mgr_unlinked_products_only %}checked="checked"{% endif %}>{{text_no}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{text_store_language_only}}></label>
+                        <div class="col-sm-10">
+                            <label><input type="radio" name="category_mgr_product_name_one_line" value="1" {% if category_mgr_product_name_one_line %}checked="checked"{% endif %}>{{text_yes}}</label>
+                            <label><input type="radio" name="category_mgr_product_name_one_line" value="0" {% if not category_mgr_product_name_one_line %}checked="checked"{% endif %}>{{text_no}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{text_process_main_category}}</label>
+                        <div class="col-sm-10">
+                            <label><input type="radio" name="category_mgr_process_main_category" value="1" {% if category_mgr_process_main_category %}checked="checked"{% endif %}>{{text_yes}}</label>
+                            <label><input type="radio" name="category_mgr_process_main_category" value="0" {% if not category_mgr_process_main_category %}checked="checked"{% endif %}>{{text_no}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{text_smart_show_on_touch}}</label>
+                        <div class="col-sm-10">
+                            <select name="category_mgr_smart_show_on_touch">
+                                <option value="0" {% if category_mgr_smart_show_on_touch == 0 %}selected="selected"{% endif %}>{{item_touch_auto}}</option>
+                                <option value="1" {% if category_mgr_smart_show_on_touch == 1 %}selected="selected"{% endif %}>{{item_touch_always_show}}</option>
+                                <option value="2" {% if category_mgr_smart_show_on_touch == 2 %}selected="selected"{% endif %}>{{item_touch_always_hide}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{text_img_size}}</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="category_mgr_img_size" value="{{category_mgr_img_size}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{text_window_ratio}}</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="category_mgr_edit_window_ratio" size="4" value="{{category_mgr_edit_window_ratio}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{text_license_name}}</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" onchange="gen_license_id(); return false;" type="text" name="category_mgr_license_name" id="license_name" value="{{category_mgr_license_name}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{text_license_id}}</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="license_id" type="text" onclick="this.setSelectionRange(0, this.value.length);" readonly name="category_mgr_license_id"/><br>{{text_license_id_hint}}<a style="font-size: 150%; color=blue; margin-top: 5px; float: left; cursor: pointer" onclick="$('#onlineActivationModal').modal('show'); return false;">{{button_online_activation}}</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="license_info">{{text_license_info}}</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="license_info" rows="7" name="category_mgr_license_info">{{category_mgr_license_info}}</textarea><br>{{text_license_info_hint}}
+                        </div>
+                    </div>
+                    <a style="display:none;" id="btnOpen" onclick="$('#form-category-mgr').submit();" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="{{button_open}}">{{button_open}}<i class="fa fa-magic"></i></a>
+                    <a href="{{check_updates_url}}" target="_blank" data-toggle="tooltip" title="{{text_check_updates_url}}" class="btn btn-success">{{button_check_updates_url}} <i class="fa fa-spin fa-cog"></i></a>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript"><!--
+    function validate_license_fields() {
+        entered = ($("#license_info").val());
+        if (entered) $("#btnOpen").show();
+    }
+
+    function online_activation() {
+
+        if ($('#license_name').val() != '' && $('#serial_key').val() != '' ) {
+            $.ajax({
+                type:  'POST',
+                cache:  false ,
+                dataType: 'json',
+                url:  'https://acuteopencart.ru/lics/index.php/order/activate',
+                data:  { 'license_name' : $("#license_name").val(), 'license_id' :  $("#license_id").val(), 'serial_key': $("#serial_key").val().trim(), 'hash' : '{{hash}}'},
+                success: function(json) {
+                    if (typeof json.error != 'undefined') {
+                        alert(json.error);
+                    }
+                    else
+                        $("#license_info").val(json.license);
+                    validate_license_fields();
+                }
+            });
+        }
+    }
+
+    function gen_license_id() {
+        $.ajax({
+            type:  'POST',
+            cache:  false ,
+            dataType: 'json',
+            url:  'index.php?route={{route}}/license&user_token={{token}}',
+            data:  { 'license_name' : $("#license_name").val()},
+            success: function(json) {
+                $("#license_id").val(json.id);
+                $("#license_name").val(json.name);
+                validate_license_fields();
+            }
+        });
+    }
+    $(function() {
+        validate_license_fields();
+        gen_license_id();
+        $('#onlineActivationModal').on('shown.bs.modal', function () {
+            $(this).find('#serial_key').focus();
+            if (window.acm_serial) {
+                $(this).find('#serial_key').val(window.acm_serial);
+                window.acm_serial = "";
+            }
+        });
+
+        $('#license_info').on('change keyup paste', function() {
+            window.acm_serial = "";
+            var dat = $(this).val().trim();
+            if (dat != '') {
+                if (dat.match(/[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}/)) {
+                    window.acm_serial = dat;
+                    $('#license_info').off('change keyup paste');
+                    $('#onlineActivationModal').modal('show');
+                }
+            }
+        });
+
+    });
+    //--></script>
+</div>
+<div class="modal fade" id="onlineActivationModal" tabindex="-1" role="dialog" aria-labelledby="onlineActivationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="X"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="onlineActivationModalLabel">{{text_online_activation_dlg}}</h4>
+            </div>
+            <div class="modal-body">
+                <div id="parent_caption" class="form-group"></div>
+                <div class="form-group">
+                    <label for="serial_key" class="control-label">{{text_provide_serial_key}}</label>
+                    <input type="text" class="form-control" id="serial_key"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="online_activation(); return false;">{{button_activate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{ footer }}

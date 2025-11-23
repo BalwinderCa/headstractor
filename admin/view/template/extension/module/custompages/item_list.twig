@@ -1,0 +1,16 @@
+{% for item in items %}
+  <tr class="text-center">
+    <td style="padding:8px 2px;">{{ item.module_id }}</td>
+    <td class="text-left">
+      <a href="{{ item.url_form }}">{{ item['setting']['title'][language_id] }}</a>
+    </td>
+    <td class="text-left">ID #{{ item.setting.layout_id }} {{ item.layout_name ? ' - ' ~ item.layout_name }}</td>
+    <td class="{{ item.setting.status ? '' : 'text-danger' }}">
+      {{ item.setting.status ? text_enabled : text_disabled }}
+    </td>
+    <td style="padding:8px 2px;">
+      <a href="{{ item.url_form }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
+      <a class="btn btn-danger btn-sm" data-isl-update='{"action":"delete", "id":{{ item.module_id }}}'><i class="fa fa-trash-o"></i></a>
+    </td>
+  </tr>
+{% endfor %}

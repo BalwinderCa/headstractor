@@ -1,0 +1,219 @@
+{{ header }} {{ column_left }} 
+<div id="content">
+   <div class="page-header">
+      <div class="container-fluid">
+         <h1>{{ heading_title }} </h1>
+         <ul class="breadcrumb">
+            {% for breadcrumb in breadcrumbs %}
+            <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+            {% endfor %}
+         </ul>
+         <div class="buttons">
+            <form action="{{ action }} " method="post" enctype="multipart/form-data" id="form">
+               <span class="btn btn-default btn-file" style="margin:0 0 0 10px;">Browse <input type="file" name="upload" /></span>
+               <a onclick="$('#form').submit();" class="btn btn-primary pull-left"><span>{{ button_import }} </span></a>
+               <a onclick="exportExcel();" class="btn btn-primary pull-right">{{ button_csv }} </a>
+            </form>
+         </div>
+      </div>
+   </div>
+   <div class="box">
+      <div class="content">
+         {% if error_warning %} 
+         <div class="warning">{{ error_warning }} </div>
+         {% endif %}  {% if success %} 
+         <div class="success" style="font-weight:bold;font-size:18px;color:green;">{{ success }} </div>
+         {% endif %}  
+         <table class="form table">
+            <thead>
+               <tr>
+                  <td>
+                     {{ entry_category }} 
+                     <select name="filter_category" class="form-control">
+                        {% if 0  ==  filter_category %} 
+                        <option value="0" selected="selected"></option>
+                        {% else %}  
+                        <option value="0"></option>
+                        {% endif %}              {% for category in categories %} 
+                        {% if category.category_id  ==  filter_category %} 
+                        <option value="{{ category.category_id }}" selected="selected">{{ category.name }} </option>
+                        {% else %}  
+                        <option value="{{ category.category_id }}">{{ category.name }} </option>
+                        {% endif %}			  
+                        {% endfor %}		
+                     </select>
+                  </td>
+                  <td>
+                     {{ entry_store }} 
+                     <select name="filter_store" class="form-control">
+                        {% if 0  ==  filter_store %} 
+                        <option value="0" selected="selected"></option>
+                        {% else %}  
+                        <option value="0"></option>
+                        {% endif %}              
+                        {% for store in stores %} 
+                        {% if store.store_id  ==  filter_store %} 
+                        <option value="{{ store.store_id }}" selected="selected">{{ store.name }} </option>
+                        {% else %}  
+                        <option value="{{ store.store_id }}">{{ store.name }} </option>
+                        {% endif %}			  
+                        {% endfor %}		
+                     </select>
+                  </td>
+                  <td style="text-align: left;">
+                     {{ entry_calc }} 
+                     <select name="filter_calc" class="form-control">
+                        {% if 0  ==  filter_calc %} 
+                        <option value="0" selected="selected"></option>
+                        <option value="1">{{ entry_calc1 }}</option>
+                        {% else %}  
+                        <option value="0"></option>
+                        <option value="1" selected="selected">{{ entry_calc1 }}</option>
+                        {% endif %}              
+                     </select>
+                  </td>
+                  <td style="text-align: right;"><a onclick="filter();" class="btn btn-primary pull-right">{{ button_filter }} </a></td>
+               </tr>
+            </thead>
+         </table>
+      </div>
+   </div>
+   <table class="table table-bordered table-hover">
+      <thead>
+         <tr>
+            <td style="text-decoration: underline"><a onclick="sort('name');">{{ column_name }} </a></td>
+            <td style="text-decoration: underline"><a onclick="sort('model');">{{ column_model }} </a></td>
+            <!-- <td style="text-decoration: underline"><a onclick="sort('sku');">{{ column_sku }} </a></td> -->
+            <td style="text-decoration: underline"><a onclick="sort('subtract');">{{ column_subtract }} </a></td>
+            <td style="text-decoration: underline"><a onclick="sort('stock');">{{ column_stock }} </a></td>
+            <td style="text-decoration: underline"><a onclick="sort('pricesell');">{{ column_pricesell }} </a></td>
+            <td style="text-decoration: underline"><a onclick="sort('pricebuy');">{{ column_pricebuy }} </a></td>
+            <td style="text-decoration: underline"><a onclick="sort('stockval');">{{ column_stockval }} </a></td>
+            <td style="text-decoration: underline"><a onclick="sort('margin');">{{ column_margin }} </a></td>
+            <input type="hidden" name="direction" value="{{ direction }}" />
+         </tr>
+      </thead>
+      <tbody>
+         {% if products %} 
+         {% set class = 'odd' %}
+         {% set srno = 1 %}
+         {% for product in products %} 
+         {% if class == 'even' %}
+         {% set class = 'odd' %}
+         {% else %}  
+         {% set class = 'even' %}
+         {% endif %}
+         <tr class="{{ class }} ">
+            <td class="left">{{ product.name }}</td>
+            <td class="left">{{ product.model}} </td>
+            <!-- <td class="left">{{ product.sku}} </td> -->
+            <td class="left">{{ product.subtract }} </td>
+            {% if product.option_id  ==  '0' %} 
+            <td class="right">{{ product.totalstock }} </td>
+            {% else %}  
+            <td class="right">{{ product.stock }} </td>
+            {% endif %}      
+            <td class="right">{{ product.pricesell }} </td>
+            <td class="right">{{ product.pricebuy }} </td>
+            <td class="right">{{ product.stockval }} </td>
+            <td class="right">{{ product.margin }} </td>
+         </tr>
+         {% set srno = srno + 1 %}
+         {% endfor %}    {% else %}  
+         <tr class="even">
+            <td class="center" colspan="8">{{ text_no_results }} </td>
+         </tr>
+         {% endif %}  
+      </tbody>
+   </table>
+   <div class="pagination">{{ pagination }} </div>
+</div>
+</div>
+</div>
+<script type="text/javascript"><!--
+   function filter() {
+   	url = 'index.php?route=extension/report/inventory&user_token={{ user_token }}';
+   			
+   	var filter_category = $('select[name=\'filter_category\']').val();
+   	
+   	
+   	if (filter_category) {
+   		url += '&filter_category=' + encodeURIComponent(filter_category);
+   	}
+   	
+   	var filter_calc = $('select[name=\'filter_calc\']').val();
+   	
+   	if (filter_calc) {
+   		url += '&filter_calc=' + encodeURIComponent(filter_calc);
+   	}
+   	
+   	var filter_store = $('select[name=\'filter_store\']').val();
+   	
+   	if (filter_store) {
+   		url += '&filter_store=' + encodeURIComponent(filter_store);
+   	}
+   	
+   	
+   	location = url;
+   }
+   
+   function sort(column) {
+   	url = 'index.php?route=extension/report/inventory&user_token={{ user_token }}';
+   			
+   	var filter_category = $('select[name=\'filter_category\']').val();
+   	
+   	var direction = $('input[name=\'direction\']').val();
+   	
+   	if (filter_category) {
+   		url += '&filter_category=' + encodeURIComponent(filter_category) + '&sort=' + encodeURIComponent(column) + encodeURIComponent(direction);
+   	}
+   	
+   	location = url;
+   }
+   
+   
+   function exportExcel() {
+   	url = 'index.php?route=extension/report/inventory&user_token={{ user_token }}';
+   			
+   	
+   	var filter_store = $('select[name=\'filter_store\']').val();
+   	if (filter_store) {
+   		url += '&filter_store=' + encodeURIComponent(filter_store);
+   	}
+   	
+   	var filter_category = $('select[name=\'filter_category\']').val();
+   	if (filter_category) {
+   		url += '&filter_category=' + encodeURIComponent(filter_category);
+   	}
+   	url += '&option2=csv';
+   	
+   	location = url;
+   }
+   //-->
+</script> 
+{{ footer }} 
+<style type="text/css">
+   .btn-file {
+   position: relative;
+   overflow: hidden;
+   }
+   .btn-file input[type=file] {
+   position: absolute;
+   top: 0;
+   right: 0;
+   min-width: 100%;
+   min-height: 100%;
+   font-size: 100px;
+   text-align: right;
+   filter: alpha(opacity=0);
+   opacity: 0;
+   outline: none;
+   background: white;
+   cursor: inherit;
+   display: block;
+   }
+   #content {
+     margin-left:250px !important;
+     margin-right: 20px !important;
+   }
+</style>

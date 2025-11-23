@@ -1,0 +1,11 @@
+image/cache/*
+storage/cache/*
+backup_pro/database/*
+backup_pro/log/*
+temp/*
+*.tar
+*.tgz
+*.gz
+*.zip
+../config.php
+./config.php

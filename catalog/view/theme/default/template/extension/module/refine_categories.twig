@@ -1,0 +1,49 @@
+{% if categories is not empty %}
+<h3>{{ heading_title }}</h3>
+<div class="row text-left">
+
+  
+ {% for category in categories %}
+
+  <div class="col-lg-{{ module_refine_categories_lg_class }} col-md-{{ module_refine_categories_md_class }} col-sm-{{ module_refine_categories_sm_class }} col-xs-{{ module_refine_categories_xs_class }}">
+      
+    <div class="product-thumb transition">
+        
+       
+
+
+    {% if module_refine_categories_image %}  
+    <div class="image">
+    {% else %}
+    <div class="image" style="display:none">
+    {% endif %}
+
+    <a href="{{ category.href }}"><img src="{{ category.thumbnail }}" alt="{{ category.name }}" title="{{ category.name }}" class="img-responsive" /></a></div>
+    
+      <div class="caption" style="min-height:{{ module_refine_categories_minimum_size }}px;">
+        
+      {% if module_refine_categories_title %}
+
+        <h4>
+        {% else %}
+        <h4 style="display:none">
+      {% endif %}
+
+        <a href="{{ category.href }}">{{ category.name }}</a>
+        </h4>
+      
+        {% if module_refine_categories_description is not empty %}
+        <p>{{ category.description }}</p>
+        {% endif %}
+
+      </div>
+      <div class="button-group">
+
+        <button onclick="window.location = '{{ category.href }}'" style="width:100%;" type="button"><i class="fa fa-search"></i>{{ button_view_all_items }}</button>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

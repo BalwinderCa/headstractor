@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-9">
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="entry-status">{{ entry_global_status }}</label>
+      <div class="col-sm-6 col-md-4">
+        <select id="entry-status" name="{{ module.code }}_setting[status]" class="form-control">
+          <option value="0" {{ module.setting.status != 1 ? 'selected="selected"' }}>{{ text_disabled }}</option>
+          <option value="1" {{ module.setting.status == 1 ? 'selected="selected"' }}>{{ text_enabled }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">{{ text_information }}</div>
+      <div class="panel-body">
+        <ul class="isl-list">
+          {% for info in text_info_setting %}
+            <li>{{ info }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+{{ header }}
+{{ column_left }}
+
+<div id="content" class="isl-module-content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <h1>{{ heading_title }}</h1>
+
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
+        {% endfor %}
+      </ul>
+
+      <div class="pull-right">
+        <button onclick="$('#form-isl-{{ module.name }}').submit();" type="submit" class="save-changes btn btn-primary" data-toggle="tooltip" title="{{ button_save }}"><i class="fa fa-save"></i></button>
+        <a href="{{ module.url_extension }}" class="btn btn-default" data-toggle="tooltip" title="{{ button_cancel }}"><i class="fa fa-reply"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    {% if unlicensedHtml %}
+      <div class="unlicensed">
+        {{ unlicensedHtml }}
+      </div>
+    {% endif %}
+
+    {% if warning %}
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <i class="fa fa-exclamation-circle" style="margin-right:10px"></i>{{ warning }}
+      </div>
+    {% endif %}
+    {% if success %}
+      <div class="alert alert-success autoSlideUp">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <i class="fa fa-check-circle" style="margin-right:10px"></i>{{ success }}
+      </div>
+      <script>$('.autoSlideUp').delay(4000).fadeOut(600, function(){ $(this).show().css({'visibility':'hidden'}); }).slideUp(600);</script>
+    {% endif %}
+
+    <div class="page-content">
+      <div class="panel panel-default panel-body">
+
+        <form action="{{ module.url_module }}" method="post" enctype="multipart/form-data" id="form-isl-{{ module.name }}" class="form-horizontal">
+          <div class="tab-navigation form-inline" style="position:relative">
+            <ul class="nav nav-tabs isl-main-nav" id="mainTabs">
+              <li class="active"><a href="#tab-setting" data-toggle="tab">{{ text_settings }}</a></li>
+              <li><a href="#tab-pages" data-toggle="tab">{{ text_pages }}</a></li>
+              <li><a href="#isense_support" data-toggle="tab">{{ text_support }}</a></li>
+            </ul>
+          </div>
+
+          <div class="tab-content">
+              <div id="tab-setting" class="tab-pane active fade in">{{ tab_setting }}</div>
+              <div id="tab-pages" class="tab-pane fade">{{ tab_pages }}</div>
+              <div id="isense_support" class="tab-pane fade">{{ tab_support }}</div>
+          </div>
+        </form>
+
+      </div>
+    </div> <!-- /.page-content -->
+
+  </div>
+</div> <!-- /.isl-module-content -->
+
+{{ footer }}

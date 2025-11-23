@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<id>bnit.it-fix-ocmod-twig-3.0.3.6</id>
+	<name>bnit.it-fix-ocmod-twig-3.0.3.6</name>
+	<code>bnit.it-fix-ocmod-twig-3.0.3.6</code>
+	<version>1.9</version>
+	<vqmver>2.x</vqmver>
+	<author>BNIT.it</author>
+	<link>http://www.bnit.it/</link>
+
+	<file path="system/library/template/twig.php" error="skip" info="fix Core Opencart twig files modification">
+		<operation>
+			<search><![CDATA[$file = DIR_TEMPLATE . $filename . '.twig';]]></search>
+			<add position="replace"><![CDATA[$file = modification( DIR_TEMPLATE . $filename . '.twig' );
+			if( class_exists('VQMod') ) {
+				$file = \VQMod::modCheck($file);
+			}
+			]]></add>
+		</operation>
+	</file>
+
+</modification>

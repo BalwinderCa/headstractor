@@ -1,0 +1,1362 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+	  <ul class="breadcrumb">
+		{% for breadcrumb in breadcrumbs %}
+		<li><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
+		{% endfor %}
+	  </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+
+  <div class="col-sm-12" id="msg"></div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+    </div>
+    <div class="panel-body">
+	
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab-db-backup" data-toggle="tab">{{ tab_db_backup }}</a></li>
+            <li><a href="#tab-ws-backup" data-toggle="tab" id="ws">{{ tab_ws_backup }}</a></li>
+            <li><a href="#tab-scheduled" data-toggle="tab" id="scheduled">{{ tab_scheduled }}</a></li>
+            <li><a href="#tab-restore" data-toggle="tab" id="restore">{{ tab_restore }}</a></li>
+            <li><a href="#tab-config" data-toggle="tab" id="config">{{ tab_config }}</a></li>
+            <li><a href="#tab-info" data-toggle="tab">{{ tab_info }}</a></li>
+            <li><a href="#tab-utilities" data-toggle="tab" id="utilities">{{ tab_utilities }}</a></li>
+            <li><a href="#tab-troubleshooting" data-toggle="tab">{{ tab_troubleshooting }}</a></li>
+            <li><a href="#tab-log" data-toggle="tab">{{ tab_log }}</a></li>
+          </ul>
+		
+          <div class="tab-content">
+	  
+	    <!-- // Database Backups -->
+          <div class="tab-pane active" id="tab-db-backup">
+			<div class="container-fluid">
+			 <form action="{{ backup }}" method="post" enctype="multipart/form-data" id="db-backup" class="form-horizontal">
+			  <input type="hidden" name="what" value ="db" />
+			  <div class="col-sm-12" style="margin-bottom: 15px;">
+				{{ text_backup_db }}
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label">{{ entry_backup }}</label>
+				<div class="col-sm-6">
+				  <div class="well well-sm" style="height: 150px; overflow: auto;">
+					{% for table in tables  %}
+					<div class="checkbox">
+					  <label>
+						<input type="checkbox" name="backup[]" value="{{ table }}" checked="checked" />
+						{{ table }}</label>
+					</div>
+					{% endfor %}
+				  </div>
+				  <a onclick="$(this).parent().find(':checkbox').prop('checked', true);">{{ text_select_all }}</a> / <a onclick="$(this).parent().find(':checkbox').prop('checked', false);">{{ text_unselect_all }}</a>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-filename"><span data-toggle="tooltip" title="{{ help_backup_filename }}">{{ entry_backup_filename }}</span></label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_filename" value="{{ backup_pro_config_filename }}" placeholder="{{ entry_backup_filename }}" id="backup-filename" class="form-control" readonly />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-ignore-excludes"><span data-toggle="tooltip" title="{{ help_backup_ignore_excludes }}">{{ entry_backup_ignore_excludes }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes">
+					  <input type="radio" name="backup_ignore_excludes" value="1"  />Yes
+					</label>
+					<label class="btn btn-default no active">
+					  <input type="radio" name="backup_ignore_excludes" value="0" checked="checked" />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_save_db2server }}">{{ entry_save_db2server }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_pro_config_save_db2server %}{{ 'active' }}{% endif %}">
+					  <input type="radio" name="save_db2server" value="1" {% if backup_pro_config_save_db2server %}{{ ' checked="checked"' }}{% endif %} />Yes
+					</label>
+					<label class="btn btn-default no {% if not backup_pro_config_save_db2server %}{{ 'active' }}{% endif %}">
+					  <input type="radio" name="save_db2server" value="0" {% if not backup_pro_config_save_db2server %}{{ ' checked="checked"' }}{% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes">
+					  <input type="radio" name="debug" value="1"  />Yes
+					</label>
+					<label class="btn btn-default no active">
+					  <input type="radio" name="debug" value="0" checked="checked" />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			 <div class="form-group">
+			  <div class="col-sm-6"></div>
+			  <div class="col-sm-6">
+				<a onclick="doBackup('db')" class="button"><button type="button" id="button-backup" class="btn btn-primary">{{ button_backup }}</button></a>
+				<div style="display: none" id="db-wait">{{ text_wait }}</div>
+			 </div>
+			 </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_available_backups }}">{{ entry_available_backups }}</span></label>
+				<div class="col-sm-9">
+				  <div class="well" style="background: #ffffcc">
+					{{ db_backups_list }}
+				  </div>
+				</div>
+			  </div>
+			 </form>
+			 
+			<hr />
+			</div>
+		  </div>
+			
+
+	    <!-- // Whole Store Backups -->
+          <div class="tab-pane" id="tab-ws-backup">
+			<div class="container-fluid">
+			 <form action="{{ backup }}" method="post" enctype="multipart/form-data" id="ws-backup" class="form-horizontal">
+			  <input type="hidden" name="what" value ="ws" />
+			  <div class="col-sm-12" style="margin-bottom: 15px;">
+				{{ text_backup_ws }}
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-filename"><span data-toggle="tooltip" title="{{ help_backup_filename }}">{{ entry_backup_filename }}</span></label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_filename" value="{{ backup_pro_config_filename }}" placeholder="{{ entry_backup_filename }}" id="backup-filename" class="form-control" readonly />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-ignore-excludes"><span data-toggle="tooltip" title="{{ help_backup_ignore_excludes }}">{{ entry_backup_ignore_excludes }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes">
+					  <input type="radio" name="backup_ignore_excludes" value="1"  />Yes
+					</label>
+					<label class="btn btn-default no active">
+					  <input type="radio" name="backup_ignore_excludes" value="0" checked="checked" />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes">
+					  <input type="radio" name="debug" value="1"  />Yes
+					</label>
+					<label class="btn btn-default no active">
+					  <input type="radio" name="debug" value="0" checked="checked" />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			 <div class="form-group">
+			  <div class="col-sm-6"></div>
+			  <div class="col-sm-6">
+				<a onclick="doBackup('ws')" class="button"><button type="button" id="button-backup" class="btn btn-primary">{{ button_backup }}</button></a>
+				<div style="display: none" id="ws-wait">{{ text_wait }}</div>
+			 </div>
+			 </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_available_backups }}">{{ entry_available_backups }}</span></label>
+				<div class="col-sm-9">
+				  <div class="well" style="background: #ffffcc">
+					{{ ws_backups_list }}
+				  </div>
+				</div>
+			  </div>
+			 </form>
+			 
+			<hr />
+			</div>
+		  </div>
+			
+			 
+		<!-- // Scheduled Backups -->
+          <div class="tab-pane" id="tab-scheduled">
+
+			<div class="container-fluid">
+			  <div class="col-sm-12" style="margin-bottom: 15px;">
+				{{ text_backup2 }}
+			  </div>
+			 <form action="{{ backup_scheduled }}" method="post" enctype="multipart/form-data" id="backup-scheduled" name="backup_scheduled" class="form-horizontal">
+			  <input type="hidden" value="{{ 'now'|date('Y-m-d') }}" name="backup_scheduled_date" />
+			  <input type="hidden" value="0" name="test_email" id="test-email" />
+			  <div class="form-group">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-10 alert alert-warning" style="background: #ffffcc">{{ text_instructions }}</div>
+				<div class="col-sm-1"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-status">{{ entry_backup_status }}</label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_scheduled_status == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_status" value="1" {% if backup_scheduled_status == '1' %} {{ ' checked="checked"' }} {% endif %} />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_scheduled_status == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_status" value="0" {% if backup_scheduled_status == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-scheduled-housekeeping"><span data-toggle="tooltip" title="{{ help_backup_housekeeping }}">{{ entry_backup_housekeeping }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_scheduled_housekeeping == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_housekeeping" value="1" {% if backup_scheduled_housekeeping == '1' %} {{ ' checked="checked"' }} {% endif %} />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_scheduled_housekeeping == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_housekeeping" value="0" {% if backup_scheduled_housekeeping == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-scheduled-filename">{{ entry_backup_filename }}</label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_scheduled_filename" value="{{ backup_scheduled_filename }}" id="backup-scheduled-filename" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_scheduled_save_db2server }}">{{ entry_save_db2server }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_scheduled_save_db2server == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_save_db2server" value="1"{% if backup_scheduled_save_db2server == '1' %} {{ ' checked="checked"' }} {% endif %}  />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_scheduled_save_db2server == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_save_db2server" value="0" {% if backup_scheduled_save_db2server == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_email_backup }}">{{ entry_email_backup }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_scheduled_email_backup == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_email_backup" value="1"{% if backup_scheduled_email_backup == '1' %} {{ ' checked="checked"' }} {% endif %}  />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_scheduled_email_backup == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_email_backup" value="0" {% if backup_scheduled_email_backup == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-scheduled-email">{{ entry_backup_email }}</label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_scheduled_email" value="{{ backup_scheduled_email }}" placeholder="{{ entry_backup_email }}" id="backup-scheduled-email" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-scheduled-email-subject">{{ entry_backup_email_subject }}</label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_scheduled_email_subject" value="{{ backup_scheduled_email_subject }}" placeholder="{{ entry_backup_email_subject }}" id="backup-scheduled-email-subject" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-scheduled-email-message">{{ entry_backup_email_message }}</label>
+				<div class="col-sm-6">
+				  <textarea name="backup_scheduled_email_message" id="backup-scheduled-email-message" class="form-control">{{ backup_scheduled_email_message }}</textarea>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-scheduled-cron"><span data-toggle="tooltip" title="{{ help_backup_cron }}">{{ entry_backup_cron }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_scheduled_cron == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_cron" value="1" {% if backup_scheduled_cron == '1' %} {{ ' checked="checked"' }} {% endif %} />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_scheduled_cron == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_scheduled_cron" value="0" {% if backup_scheduled_cron == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-scheduled-cron-command"><span data-toggle="tooltip" title="{{ help_backup_cron_command }}">{{ entry_backup_cron_command }}</span></label>
+				<div class="col-sm-6">
+				  <textarea name="backup_scheduled_cron_command" id="backup-scheduled-cron-command" class="form-control">{{ backup_scheduled_cron_command }}</textarea>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-scheduled-frequency"><span data-toggle="tooltip" title="{{ help_backup_frequency }}">{{ entry_backup_frequency }}</span></label>
+				<div class="col-sm-6">
+				  <select name="backup_scheduled_frequency" id="backup-scheduled-frequency" class="form-control">
+				{% for frequency in frequencies %}
+					{% if frequency == backup_scheduled_frequency %}
+						<option value="{{ frequency }}" selected="selected">{{ frequency }}</option>
+					{% else %}
+						<option value="{{ frequency }}">{{ frequency }}</option>
+					{% endif %}
+				{% endfor %}
+				  </select>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			 <div class="form-group">
+			  <div class="col-sm-3">
+			  </div>
+			  <div class="col-sm-3">
+				<a onclick="$('#backup-scheduled').submit();" class="button"><button type="button" id="button-scheduled-backup" class="btn btn-primary">{{ button_save }}</button></a>
+			  </div>
+			  <div class="col-sm-3">
+				<a onclick="testEmail()" class="button"><button type="button" class="btn btn-success"{{ backup_scheduled_test_button }}>{{ button_test_email }}</button></a>
+				{% if backup_scheduled_test_button %}
+				<br><strong><em>Save Settings to activate test button</em></strong>
+				{% endif %}
+			  </div>
+			  
+			 </div>
+			 </form>
+			 
+			<div class="alert alert-warning" id="email-test-message"><i class="fa fa-exclamation-circle"></i> <span id="test-message">&nbsp;</span>
+			  <button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+
+			<hr />
+			</div>
+
+		  </div>
+
+		
+		<!-- // Restore -->
+          <div class="tab-pane" id="tab-restore">
+
+			<div class="container-fluid">
+			  <div class="col-sm-12" style="margin-bottom: 15px;">
+				{{ text_restore }}
+			  </div>	
+			 <form action="{{ restore }}" method="post" enctype="multipart/form-data" id="form-restore" class="form-horizontal">
+
+
+			{% if storage_folder_exists %}
+			 <div class="form-group">
+			  <label class="col-sm-3 control-label" for="input-import"><span data-toggle="tooltip" title="{{ help_storage_folder }}">{{ entry_storage_folder }}</span></label>
+			  <div class="col-sm-3"><a onclick="restoreStorageFolder();" class="button"><button type="button" id="button-restore-storage-folder" class="btn btn-success">{{ button_restore }}</button></a></div>
+			  <div class="col-sm-6">
+				<a onclick="deleteStorageFolder();" class="button"><button type="button" id="button-delete-storage-folder" class="btn btn-danger">{{ button_no }}</button></a>
+				<div style="display: none" id="restore-storage-folder-wait">{{ text_restore_storage_folder_wait }}</div>
+			  </div>
+			 </div>
+			 <hr />
+			  {% endif %}
+
+			{% if clone_exists %}
+			 <div class="form-group">
+			  <label class="col-sm-3 control-label" for="input-import"><span data-toggle="tooltip" title="{{ help_clone }}">{{ entry_clone }}</span></label>
+			  <div class="col-sm-3"><a onclick="restoreClone();" class="button"><button type="button" id="button-restore-clone" class="btn btn-success">{{ button_restore }}</button></a></div>
+			  <div class="col-sm-6">
+				<a href="{{ delete_clone }}" class="button"><button type="button" id="button-delete-clone" class="btn btn-danger">{{ button_no }}</button></a>
+				<div style="display: none" id="restore-clone-wait">{{ text_restore_wait }}</div>
+			  </div>
+			 </div>
+			 <hr />
+			  {% endif %}
+
+			   <div class="form-group">
+				 <label class="col-sm-3 control-label" for="input-import"><span data-toggle="tooltip" title="{{ help_restore }}">{{ entry_restore }}</span><br>{{ max_upload }}</label>
+				 <div class="col-sm-9">
+				   <input type="hidden" name="MAX_FILE_SIZE" value="120000000" />
+				   <input type="file" name="import" id="input-import" />
+				 </div>
+			   </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes">
+					  <input type="radio" name="debug" value="1"  />Yes
+					</label>
+					<label class="btn btn-default no active">
+					  <input type="radio" name="debug" value="0" checked="checked" />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3"></label>
+				<div class="col-sm-7">
+				<button type="button" onclick="restoreBackup();" id="button-restore" class="btn btn-primary">{{ button_restore }}</button>
+				<div style="display: none" id="restore-wait">{{ text_restore_wait }}</div>
+				</div>
+				<div class="col-sm-2"></div>
+			  </div>
+			 </form>
+
+			<hr />
+			</div>
+		  </div>
+		
+		
+		<!-- // Configuration -->
+          <div class="tab-pane" id="tab-config">
+
+			<div class="container-fluid">
+			  <div id="config1">
+			  <div class="col-sm-12" style="margin-bottom: 15px;">
+				<h1 style="color: #ff8000">{{ tab_config }}</h1>
+			  </div>
+			  </div>
+			  
+				{% if configuration_alert %}
+				<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ configuration_alert }}
+				  <button type="button" form="form-backup" class="close" data-dismiss="alert">&times;</button>
+				</div>
+				{% endif %}
+			  
+			 <form action="{{ backup_configuration }}" method="post" enctype="multipart/form-data" id="backup-configuration" name="backup_configuration" class="form-horizontal">
+			 			  
+			  <!-- GENERAL CONFIGURATION -->
+			  <div id="config2">
+			  <hr>
+			  {{ text_general }}
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-filename">{{ entry_backup_filename }}</label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_pro_config_filename" value="{{ backup_pro_config_filename }}" placeholder="{{ entry_backup_filename }}" id="backup-filename" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_config_wholestore_excludes }}">{{ entry_config_wholestore_excludes }}</span></label>
+				<div class="col-sm-6">
+				  <textarea name="backup_pro_config_wholestore_excludes" rows="5" class="form-control">{{ backup_pro_config_wholestore_excludes }}</textarea>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_config_max_time }}">{{ entry_config_max_time }}</span></label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_pro_config_max_time" value="{{ backup_pro_config_max_time }}" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_config_memory_limit }}">{{ entry_config_memory_limit }}</span></label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_pro_config_memory_limit" value="{{ backup_pro_config_memory_limit }}" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  </div>
+
+
+
+			  <!-- DATABASE CONFIGURATION -->
+			  <div id="config3">
+			  <hr>
+			  {{ text_db }}
+			  <div class="form-group">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-10 alert alert-warning" style="background: #ffffcc">{{ text_database_configuration }}</div>
+				<div class="col-sm-1"></div>
+			  </div>
+			  
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_config_max_rows }}">{{ entry_config_max_rows }}</span></label>
+				<div class="col-sm-3">
+				  <input type="text" name="backup_pro_config_max_rows" value="{{ backup_pro_config_max_rows }}" class="form-control" />
+				</div>
+				<div class="col-sm-6"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_config_max_packet }} {{ system_max_packet_size }}">{{ entry_config_max_packet }}</span></label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_pro_config_max_packet" value="{{ backup_pro_config_max_packet }}" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_config_large_table }}">{{ entry_config_large_table }}</span></label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_pro_config_large_table" value="{{ backup_pro_config_large_table }}" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_config_excludes }}">{{ entry_config_excludes }}</span></label>
+				<div class="col-sm-6">
+				  <textarea name="backup_pro_config_exclude_tables" rows="5" class="form-control" placeholder="{{ text_table_excludes_placeholder }}">{{ backup_pro_config_exclude_tables }}</textarea>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-max-sql-size"><span data-toggle="tooltip" title="{{ help_max_sql_size }}">{{ entry_config_max_sql_size }}</span></label>
+				<div class="col-sm-6">
+				  <select name="backup_pro_config_max_sql_size" id="backup-max-sql-size" class="form-control">
+					{% for s in max_sql_size %}
+					  {% if s == backup_pro_config_max_sql_size %}
+						{% if s == 'Not Set' %}
+							<option value="{{ s }}" selected="selected">{{ s }}</option>
+						{% else %}
+							<option value="{{ s }}" selected="selected">{{ s }} Mb</option>
+						{% endif %}
+					  {% else %}
+						{% if s == 'Not Set' %}
+							<option value="{{ s }}">{{ s }}</option>
+						{% else %}
+							<option value="{{ s }}">{{ s }} Mb</option>					
+						{% endif %}
+					  {% endif %}
+					{% endfor %}
+				  </select>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-scheduled-zip">{{ entry_backup_zip }}</label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_scheduled_zip == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_zip" value="1"{% if backup_pro_config_zip == '1' %} {{ ' checked="checked"' }} {% endif %} />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_pro_config_zip == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_zip" value="0" {% if backup_pro_config_zip == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label" for="backup-combine-download"><span data-toggle="tooltip" title="{{ help_consolidate_zip }}">{{ entry_consolidate_zip }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_pro_config_consolidate_zip == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_consolidate_zip" value="1" {% if backup_pro_config_consolidate_zip == '1' %} {{ ' checked="checked"' }} {% endif %} />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_pro_config_consolidate_zip == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_consolidate_zip" value="0" {% if backup_pro_config_consolidate_zip == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_download }}">{{ entry_download }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_pro_config_download == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_download" value="1"{% if backup_pro_config_download == '1' %} {{ ' checked="checked"' }} {% endif %}  />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_pro_config_download == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_download" value="0" {% if backup_pro_config_download == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_pro_config_save_db2server }}">{{ entry_save_db2server }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_pro_config_save_db2server == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_save_db2server" value="1"{% if backup_pro_config_save_db2server == '1' %} {{ ' checked="checked"' }} {% endif %}  />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_pro_config_save_db2server == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_save_db2server" value="0" {% if backup_pro_config_save_db2server == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+
+
+			  {% if not tarIsEnabled %}
+			  <!-- WHOLE STORE CONFIGURATION -->
+			  <hr>
+			  {{ text_ws }}
+			  {% endif %}
+			  <div class="form-group {% if tarIsEnabled %}{{ 'hidden' }}{% endif %}">
+				<label class="col-sm-3 control-label" for="backup-limit"><span data-toggle="tooltip" title="{{ help_backup_limit }}">{{ entry_backup_limit }}</span></label>
+				<div class="col-sm-6">
+				  <select name="backup_pro_config_limit" id="backup-limit" class="form-control">
+					{% for l in b_limit %}
+					  {% if l == backup_pro_config_limit %}
+						{% if l == 'All Files' %}
+							<option value="{{ l }}" selected="selected">{{ l }}</option>
+						{% else %}
+							<option value="{{ l }}" selected="selected">{{ l }} Mb</option>
+						{% endif %}
+					  {% else %}
+						{% if l == 'All Files' %}
+							<option value="{{ l }}">{{ l }}</option>
+						{% else %}
+							<option value="{{ l }}">{{ l }} Mb</option>					
+						{% endif %}
+					  {% endif %}
+					{% endfor %}
+				  </select>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <div class="form-group {% if tarIsEnabled %}{{ 'hidden' }}{% endif %}">
+				<label class="col-sm-3 control-label" for="backup-combine-download"><span data-toggle="tooltip" title="{{ help_combine_download }}">{{ entry_combine_download }}</span></label>
+				<div class="col-sm-6">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_pro_config_combine_download == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_combine_download" value="1" {% if backup_pro_config_combine_download == '1' %} {{ ' checked="checked"' }} {% endif %} />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_pro_config_combine_download == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_combine_download" value="0" {% if backup_pro_config_combine_download == '0' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+			  <div class="form-group {% if tarIsEnabled %}{{ 'hidden' }}{% endif %}">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_config_max_files }}">{{ entry_config_max_files }}</span></label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_pro_config_max_files" value="{{ backup_pro_config_max_files }}" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  <hr>
+			  {{ text_restore }}
+			  <div class="form-group">
+				<label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ help_config_restore_time_limit }}">{{ entry_config_restore_time_limit }}</span></label>
+				<div class="col-sm-6">
+				  <input type="text" name="backup_pro_config_restore_time_limit" value="{{ backup_pro_config_restore_time_limit }}" class="form-control" />
+				</div>
+				<div class="col-sm-3"></div>
+			  </div>
+
+			  </div>
+
+
+			  <!-- DATABASE HOUSEKEEPING -->
+			  <div id="config4">
+			  <hr>
+			  {{ text_housekeeping }}
+			  <div class="form-group">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-10 alert alert-warning" style="background: #ffffcc">{{ text_housekeeping_2 }}</div>
+				<div class="col-sm-1"></div>
+			  </div>
+			  
+			  <div class="form-group{% if e404s == false %} hidden{% endif %}">
+				<label class="col-sm-3 control-label">{{ entry_404_report }}</label>
+				<div class="col-sm-2">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_pro_config_404_report == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_404_report" value="1"{% if backup_pro_config_404_report == '1' %} {{ ' checked="checked"' }} {% endif %} />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_pro_config_404_report == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_404_report" value="0" {% if backup_pro_config_404_report != '1' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-6 alert alert-info">{{ text_404_report }}</div>
+				<div class="col-sm-1"></div>
+			  </div>
+			  <div class="form-group{% if bots == false %} hidden{% endif %}">
+				<label class="col-sm-3 control-label">{{ entry_bots_report }}</label>
+				<div class="col-sm-2">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_pro_config_bots_report == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_bots_report" value="1"{% if backup_pro_config_bots_report == '1' %} {{ ' checked="checked"' }} {% endif %} />Yes
+					</label>
+					<label class="btn btn-default no{% if backup_pro_config_bots_report == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_bots_report" value="0" {% if backup_pro_config_bots_report != '1' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-6 alert alert-info">{{ text_bots_report }}</div>
+				<div class="col-sm-1"></div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-3 control-label">{{ entry_session }}</label>
+				<div class="col-sm-2">
+				  <div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default yes {% if backup_pro_config_session == '1' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_session" value="1"{% if backup_pro_config_session == '1' %} {{ ' checked="checked"' }} {% endif %} />Yes
+					</label>
+					<label class="btn btn-default no {% if backup_pro_config_session == '0' %} {{ 'active' }} {% endif %}">
+					  <input type="radio" name="backup_pro_config_session" value="0" {% if backup_pro_config_session != '1' %} {{ ' checked="checked"' }} {% endif %} />No
+					</label>
+				  </div>
+				</div>
+				<div class="col-sm-6 alert alert-info">{{ text_session }}</div>
+				<div class="col-sm-1"></div>
+			  </div>
+			  </div>
+			  
+			 <div class="form-group">
+			  <div class="col-sm-3">
+			  </div>
+			  <div class="col-sm-6">
+				<a onclick="housekeeping();" class="button"><button type="button" id="button-save-configuration" class="btn btn-warning" style="margin-left:15px">{{ button_housekeeping }}</button></a>
+				<br><br><br>
+			  </div>
+			  <div class="col-sm-3">
+				&nbsp;
+			  </div>
+			 </div>
+			 
+
+			 <div class="form-group">
+			  <div class="col-sm-9">
+			  </div>
+			  <div class="col-sm-3">
+				<a onclick="$('#backup-configuration').submit();" class="button"><button type="button" id="button-save-configuration" class="btn btn-primary">{{ button_save }}</button></a>
+				<br><br><br>
+			  </div>
+			 </div>
+			 <hr>
+			 
+			 <div id="config5">
+			 <h2 style="color: #ff8000">{{ text_database_tables }}</h2>
+			 <div class="form-group">
+				<table class="table table-striped">
+				  <thead>
+				    <tr>
+					  <td>Table Name</td>
+					  <td class="text-right">Rows</td>
+				      <td class="text-right">Total Size</td>
+					  <td class="text-right">Data Length</td>
+					  <td class="text-right">Index Length</td>
+					</tr>
+				  </thead>
+				  <tbody>
+				    {% for row in database_tables %}
+					<tr>
+					  <td>{{ row.table }}</td>
+					  <td class="text-right">{{ row.rows }}</td>
+					  <td class="text-right"><strong>{{ row.size }}</strong></td>
+					  <td class="text-right">{{ row.data_length }}</td>
+					  <td class="text-right">{{ row.index_length }}</td>
+					</tr>
+					{% endfor %}
+				  </tbody>
+				</table>
+			 </div>
+			 </div>
+			 </form>
+			<hr />
+			</div>
+		  </div>
+		
+		
+		<!-- // Information -->		
+          <div class="tab-pane" id="tab-info">
+
+			<div class="container-fluid">
+			  <div class="col-sm-12" style="margin-bottom: 15px;">
+				<div class="well">
+				  {{ text_further_information }}{{ text_further_information2 }}
+				</div>
+			  </div>	
+			<hr />
+			
+			<br /><br />
+			<div id="backup-pro-status">
+			  <div class="container-fluid">	
+				<table class="table">
+				  <tr>
+					<td colspan="2">{{ entry_backup_pro_compatibility }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_memory_limit }}</td>
+					<td>{{ memory_limit }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_max_execution_time }}</td>
+					<td>{{ max_execution_time }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_max_packets }}</td>
+					<td>{{ system_max_packet_size }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_post_max_size }}</td>
+					<td>{{ post_max_size }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_upload_max_filesize }}</td>
+					<td>{{ upload_max_filesize }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_curl }}</td>
+					<td>{{ curl }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_zip }}</td>
+					<td>{{ zip }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_exec }}</td>
+					<td>{{ exec }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_tar }}</td>
+					<td>{{ tar }}</td>
+				  </tr>
+				  <tr>
+					<td style="width: 30%">{{ entry_size_of_database }}</td>
+					<td>{{ database_size }}</td>
+				  </tr>
+				</table>
+				<br />
+				
+				<h2 style="color: #ff8000">{{ text_files_data }}</h2>
+				<table class="table">
+				  <thead>
+				    <tr>
+					  <td>{{ entry_folder }}</td>
+					  <td>{{ entry_no_of_files }}</td>
+					  <td>{{ entry_size_of_files }}</td>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+					  <td><strong>{{ total_data.folder }}</strong></td>
+					  <td><strong>{{ total_data.no }}</strong></td>
+					  <td><strong>{{ total_data.size }}</strong></td>
+					</tr>
+					{% for data in folder_data %}
+				    <tr>
+					  <td><strong>{{ data.folder }}</strong></td>
+					  <td>{{ data.no }}</td>
+					  <td>{{ data.size }}</td>
+					</tr>
+					{% endfor %}
+				  </tbody>
+				</table>
+			  </div>
+			</div>
+		  </div>
+		  </div>
+		
+		
+		<!-- // Utilities -->		
+          <div class="tab-pane" id="tab-utilities">
+
+			<div class="container-fluid">
+			
+			<h1 style="color: #ff8000">{{ tab_utilities }}</h1>
+			<div class="alert alert-info">{{ text_utilities }}</div>
+			
+			<table class="table">
+			  <tr>
+				<td style="width: 30%">{{ entry_diagnostics }}<br /><br /><div class="buttons"><a onclick="downloadDiagnostics()" class="btn btn-primary">{{ button_diagnostics }}</a></div></td>
+				<td>{{ help_diagnostics }}</td>
+			  </tr>
+			</table>
+			<br>
+			<br>
+			
+			<table class="table hidden">
+			  <tr>
+				<td style="width: 30%">{{ entry_large_tables }}<br /><br />
+				  <select name="large_tables" id="large-tables" class="form-control" onchange="largeTables()">
+				    <option value="0">{{ text_select }}</option>
+					{% set index = 1 %}
+					{% for row in large_tables %}
+				    <option value="{{ index }}">{{ row.table }} ({{ row.size }})</option>
+					{% set index = index + 1 %}
+					{% endfor %}
+				  </select>
+				</td>
+				<td>{{ help_large_tables }}
+				<br>
+				<div id="backup-large-table" class="buttons"></div>
+				</td>
+			  </tr>
+			</table>
+			<br>
+			<br>
+			
+			<table class="table">
+			  <tr>
+				<td colspan="2">{{ entry_capacity_test }}<br />{{ text_capacity_test }}</td>
+			  </tr>
+			  <tr>
+				<td style="width: 30%">{{ entry_memory_limit }}<br /><br /><div class="buttons"><a href="{{ memory_limit_test }}" class="btn btn-primary" target="memTest">Run Test</a></div></td>
+				<td>{{ text_memory_limit }}</td>
+			  </tr>
+			  <tr>
+				<td style="width: 30%">{{ entry_max_ex_time }}<br /><br /><div class="buttons"><a href="{{ max_ex_time_test }}" class="btn btn-primary" target="memTest">Run Test</a></div></td>
+				<td>{{ text_max_ex_time }}</td>
+			  </tr>
+			</table>
+			</div>
+			
+			</div>
+		
+		
+		<!-- // Troubleshooting -->		
+          <div class="tab-pane" id="tab-troubleshooting">
+
+			<div class="container-fluid troubleshooting">
+			
+			<h1 style="color: #ff8000">{{ tab_troubleshooting }}</h1>
+			<div class="alert alert-info">{{ text_troubleshooting }}</div>
+			<br><br>
+			
+			<h2 style="color: #ff8000">1. Optimise Configuration Settings</h2>
+			<br>
+			<p>Of all the configuration settings that Backup Pro uses, there are two that can be misleading:</p>
+			<ul>
+			  <li><strong>Memory Limit</strong></li>
+			  <li><strong>Maximum Execution Time</strong></li>
+			</ul>
+			<p><strong>Memory Limit</strong> is the internal memory that the script is allowed to use and is already pre set within PHP. Sometimes this set lower than what is actually available in order to protect the server from being overloaded from several simultaneous requests (there may be other domains hosted on the same IP address). Other times, this is set higher than that which is available on the server in order to maximise the available memory to a particular script, but this can lead to scripts attempting to use too much memory and causing it to crash.</p>
+			
+			<p><strong>Maximum Execution Time</strong> as it's name implies is how long you have until the server responds with a <span class="ts-strong">Time Out</span> error. This is also pre set within PHP and is subject to the same issues as with Memory Limit (ie could be set too high or too low).
+			
+			<p>Backup Pro needs these settings to reflect the <span class="ts-strong">TRUE</span> available memory / time in order to maximise the use of what's available, while avoiding <span class="ts-strong">Out of Memory</span> or <span class="ts-strong">Time Out</span> errors.</p>
+			
+			<p>If you are experiencing problems with backups failing to complete, the first thing to check is these two settings. You can do this by using the <strong>Capacity Tests</strong> on the <strong>Utilities</strong> tab.</p>
+			<br><br>
+			
+			
+			
+			
+			<h2 style="color: #ff8000">2. Errors With Database Backup</h2>
+			<br>
+			<p>Database backups are automatically downloaded by your browser, and by default are not permanently saved on the server unless you override this setting each time you make a backup.</p>
+			<p>There are two possible reasons for database backups failing:.<p>
+			<ul>
+			  <li>The actual database backup failed to complete.</li>
+			  <li>The archive compression failed to complete.</li>
+			</ul>
+			<p>In either case, the issue is that there is too much data held in your database for your server to be able download in a single file.</p>
+			<p>Usually if this is the case, it is only one or two tables that hold significant amounts of data and these can often (<em>but not always</em>) be purged of data without causing any harm to your store.</p>
+			<p>Here's what to do . . .</p>
+			<br>
+			<br>
+
+			<h3>Step 1. Establish Which Tables Are Problematic</h3>
+			<p>When a store has been operating for some time, some tables can accumulate a lot of data. At the bottom of the 'Configuration' page is a list of the database tables sorted in order of size. The largest tables are at the top of the list and the smallest or empty tables are at the bottom.</p>
+			<p>Make a note of any that are larger than 50 Mb</p>
+			<br>
+			
+			<h3>Step 2. Check For a Housekeeping Fix</h3>
+			<p>There is a housekeeping fix built in to <strong>Backup Pro</strong> for some tables that contain out of date or duplicate data. Backup Pro automatically detects if these tables are active in your database and includes an option for performing 'housekeeping' on them.</p>
+			<p>Check the <strong>Housekeeping</strong> section on the <strong>Configuration</strong> tab to see if one or more of your tables are covered by this.</p>
+			<br>
+
+			<h3>Step 3. Check Whether The Data In The Table Is Actually Required</h3>
+			<p>If it is not, then add the table name to the list <strong>Exclude Database Tables From Backups</strong> in the Configuration Settings tab. This will cause the data from those tables to not be included in your backup, unless overridden at the time of making a backup.</p>
+			<p>If you are in any doubt whether or not you should exclude this table from the backup, <span class="text-danger">DO NOT ADD IT TO THE EXCLUDES LIST</span>.</p>
+			<br>
+
+			<h3>Step 4. Split The Database Backup File.</h3>
+			<p>If the above steps do not resolve the problem with the database backup not completing, set the <strong>Split Database Backup File</strong> configuration setting.</p>
+			<p>This will require Backup Pro to automatically redirect several times and you should only set this if there is no other way you are able to get the database backup to complete.</p>
+			<br>
+			<br>
+			
+			<h2 style="color: #ff8000">3. Errors With Whole Store Backup</h2>
+			<h3>Step 1. Ensure The Problem Is Not Caused By The Database</h3>
+			<p>When creating a whole store backup, the first thing that Backup Pro does is generate a database backup.</p>
+			<p>Try a 'Database Only' backup to make sure this is not the problem. Database backups will be downloaded directly to your pc and not kept on the server.</p>
+			<p>If this fails, follow the steps at 2. Errors With Database Backup</p>
+			<br>
+			
+			<h3>Step 2. Check For a Housekeeping Fix</h3>
+			<p>There is a housekeeping fix built in to <strong>Backup Pro</strong> for some tables that contain out of date or duplicate data. Check the <strong>Housekeeping</strong> section on the <strong>Configuration</strong> tab to see if one or more of your tables are covered by this.</p>
+			<br>
+
+			<h3>Step 3. Check The Log</h3>
+			<p>Run a Whole Store Backup with the <strong>Debug Mode</strong> set to <strong>Yes</strong>.</p>
+			<br>
+
+			<h3>Step 4. Zip Files</h3>
+			<p>The most efficient method of archiving your store files is creating a 'TAR ball'. This is a method that operates outside of PHP and will usually run as a background task no matter how long it takes.</p>
+			<p>Unfortunately, not all hosting providers allow their users to access the TAR application. In that event, Backup Pro will fallback to the PHP Ziparchive utility. While this works well for smaller installations, PHP quickly runs into difficulties if the filesizes get too large.</p>
+			<p>If the Whole Store backup is failing, try <strong>limiting the size of the zip <em>(Configuration tab, Whole Store Backup Settings section)</em></strong>. This will be a 'trial and error' exercise to find the largest size for each archive that allows the backup to complete with the minimum number of files.</p>
+			<br>
+
+			<h3>Step 5. Backup Fails, but there are multiple 'part' backups.</h3>
+			<p>If you have set a limit for the size of zip files, Backup Pro will attempt to create a single archive that contains each of the smaller parts.</p>
+			<p>Quite often that last element will cause the backup to 'crash'. In this case, simply change the setting <strong>Combine Zip Files <em>(Configuration Settings tab, Whole Store Backup Settings section)</em></strong> to <strong>No</strong>.</p>
+			<br>
+
+
+			
+			
+			<h2 style="color: #ff8000">4. Errors With Restore Backup</h2>
+			<p>If you get an error <strong>Undefined index: import</strong> or <strong>The file you uploaded was empty.</strong> when trying to restore a backup, make sure that the values for</p>
+			<ul>
+			  <li>post_max_size</li>
+			  <li>upload_max_filesize</li>
+			</ul>
+			<p>in your php.ini file are greater than the size of file you are attempting to upload. You can do this by either editing .htaccess or php.ini:</p>
+			
+			<div class="container">
+			  <div class="col-lg-1"></div>
+			  <div class="col-lg-4">
+				<div class="well">
+				  <strong>.htaccess</strong><br>
+				  php_value upload_max_filesize 50M<br>
+				  php_value post_max_size 50M<br><br>
+				  <strong>php.ini</strong> <em>(or .user.ini)</em><br>
+				  upload_max_filesize=50M<br>
+				  post_max_size=50M<br><br>
+				</div>
+			  </div>
+			  <div class="col-lg-7"></div>
+			</div>
+			<br>			
+			</div>
+			
+		  </div>
+
+	    <!-- // Log -->
+          <div class="tab-pane" id="tab-log">
+			<div class="container-fluid">
+			  <div class="col-sm-12" style="margin-bottom: 15px;">
+				{{ text_log }}
+			  </div>
+
+			  <div class="form-group">
+				<div class="col-sm-12">
+				  <div class="well">
+					{{ log }}
+				  </div>
+				</div>
+			  </div>
+			 
+			<hr />
+			</div>
+		  </div>
+		  
+		  <!-- End of Tab Panel -->
+			
+			 
+
+		</div>
+		<hr />
+		<div class="text-center">Backup PRO Version: {{ version }}</div>
+		  
+		</div>
+		
+	  </div>
+	</div>
+</div>
+</div>
+	  
+
+<script type="text/javascript"><!--
+	$(document).ready(function() {
+	
+	{% if download_available %}
+	//-----------------------------------------
+	// Download File
+	//-----------------------------------------
+	window.location.href = "{{ backup_download }}";
+	{% endif %}
+
+	$('#email-test-message').hide();
+	
+	{% if goto_utilities %}
+		$('#utilities').trigger('click');
+	{% endif %}
+	
+	{% if goto %}
+		$('{{ goto }}').trigger('click');
+	{% endif %}
+	
+	{% if wholeStoreTar %}
+		var request = $.ajax({
+			url: '{{ wholeStoreTar.url }}',
+			type: 'post',
+			dataType: 'html',
+			data: { 'cmd' : '{{ wholeStoreTar.cmd }}', 'debug' : '{{ wholeStoreTar.debug }}' }
+		});
+/*		request.done(function( html ) {
+		  
+		  $('#msg').html(html);
+		});
+		 
+		request.fail(function( jqXHR, textStatus ) {
+		  alert( "Request failed: " + textStatus );
+		});  */
+	{% endif %}
+	});
+</script>
+
+
+<script type="text/javascript"><!--
+	function doBackup(what) {
+		var form = '#' + what + '-backup';
+		var wait = '#' + what + '-wait';
+		$(wait).show();
+		$(form).submit();
+	}
+
+	function testEmail() {
+		$('#test-wait').show();
+		
+		var request = $.ajax({
+		  url: "{{ test }}",
+		  method: "GET",
+		  data: { test : 'true' },
+		  dataType: "html",
+		  timeout: 300000
+		});
+
+		request.done(function( html ) {
+		  $('#test-wait').hide();
+		  $('#test-message').html( html );
+		  $('#email-test-message').show();
+		});
+		 
+		request.fail(function( jqXHR, textStatus ) {
+		  alert( "Request failed: " + textStatus );
+		});
+	}
+
+	function restoreBackup() {
+		$('#restore-wait').show();
+		$('#form-restore').submit();
+	}
+
+	function restoreClone() {
+		$('#restore-clone-wait').show();
+		window.location.href='{{ restore_clone }}';
+	}
+
+	function restoreStorageFolder() {
+		$('#restore-storage-folder-wait').show();
+		window.location.href='{{ restore_storage_folder }}';
+	}
+	
+	function deleteStorageFolder() {
+		$('#restore-storage-folder-wait').show();
+		window.location.href='{{ delete_storage_folder }}';
+	}
+	
+	function showTableStatus() {
+	
+		$.ajax({
+			url: 'index.php?route=extension/tool/backup_pro/show_table_status&user_token={{ user_token }}',
+			type: 'post',
+			dataType: 'html',
+			success: function(html) {
+				if (html) {
+					$('#table-status').html(html);
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+		
+		$('#table-status').show();
+
+	}
+	
+	function housekeeping() {
+	
+		if($('input[name=\'backup_pro_config_404_report\']:checked').val() == '0' && $('input[name=\'backup_pro_config_bots_report\']:checked').val() == '0' && $('input[name=\'backup_pro_config_session\']:checked').val() == '0') {
+		
+			alert('You must select at least one table to perform the Housekeeping activity.');
+		
+		} else {
+			alert('Please be aware that if you have made any changes to the configuration settings, they will not be saved by performing this action.');
+			
+			var url = 'index.php?route=extension/tool/backup_pro/housekeeping&user_token={{ user_token }}';
+			
+			$.ajax({
+				url: url,
+				type: 'post',
+				data: { session_id : '{{ session_id }}',
+						nf_404_report : $('input[name=\'backup_pro_config_404_report\']:checked').val(),
+						bots_report : $('input[name=\'backup_pro_config_bots_report\']:checked').val(),
+						session : $('input[name=\'backup_pro_config_session\']:checked').val()
+						},
+				dataType: 'text',
+				success: function(html) {
+					alert('Tables Cleaned');
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		}
+
+
+	}
+	
+	function downloadDiagnostics() {
+	  var html = '<html>' + "\n";
+	  html += '  <head>' + "\n";
+ 	  html += '   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />' + "\n";
+	  html += '	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>' + "\n";
+	  html += '	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>' + "\n";
+	  html += '	<link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />' + "\n";
+	  html += '	<link type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />' + "\n";
+	  html += '	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">' + "\n";
+	  html += '	<style>' + "\n";
+	  html += '	  body {' + "\n";
+	  html += '		  font-family: \'Open Sans\';' + "\n";
+	  html += '		  font-size: 16px;' + "\n";
+	  html += '	  }' + "\n";
+	  html += '	  tbody td {' + "\n";
+	  html += '		  font-size: 0.8em;' + "\n";
+	  html += '	  }' + "\n";
+	  html += '	</style>' + "\n";
+	  html += '  </head>' + "\n";
+	  html += '  <body>' + "\n";
+
+	  
+	  html += '		<div class="container">' + "\n";
+	  html += $('#backup-pro-status').html() + $('#config1').html() + "\n";
+	  html += '		<form class="form-horizontal">' + "\n";
+	  html += $('#config2').html() + $('#config3').html() + $('#config4').html() + $('#config5').html(); ;
+	  html += '		</form>' + "\n";
+	  html += '	  </body>' + "\n";
+	  html += '	</html>' + "\n";
+	  
+	  download('backup_pro_diagnostic.html', html);
+	}
+	
+	function download(filename, html, type="text/html") {
+	  // Create an invisible A element
+	  const a = document.createElement("a");
+	  a.style.display = "none";
+	  document.body.appendChild(a);
+
+	  // Set the HREF to a Blob representation of the data to be downloaded
+	  a.href = window.URL.createObjectURL(
+		new Blob([html], { type })
+	  );
+
+	  // Use download attribute to set set desired file name
+	  a.setAttribute("download", filename);
+
+	  // Trigger the download by simulating click
+	  a.click();
+
+	  // Cleanup
+	  window.URL.revokeObjectURL(a.href);
+	  document.body.removeChild(a);
+	}
+	
+	function largeTables() {
+	  
+	  let tables = [
+		{
+			"table": "",
+			"size": 0,
+			"buttons": 0
+		},
+	  {% for row in large_tables %}
+		{
+			"table": "{{ row.table }}",
+			"size": {{ row.total_size }},
+			"buttons": {{ row.buttons }}
+		},
+	  {% endfor %}	  
+		{
+			"table": "",
+			"size": 0,
+			"buttons": 0
+		}
+	  ];
+	}
+
+	function dbAnalysis() {
+	  
+		var html = '<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>';
+
+		$('#db-analysis').html(html);
+		$('#db-analysis').show();
+
+		$.ajax({
+			url: 'index.php?route=extension/tool/backup_pro/dbAnalysis&user_token={{ user_token }}',
+			type: 'post',
+			dataType: 'html',
+			success: function(html) {
+				if (html) {
+					$('#db-analysis').html(html);
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				clearDbAnalysis();
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+
+	}
+	
+	function clearDbAnalysis() {
+	  $('#db-analysis').hide();
+  	  $('#db-analysis').html('');
+
+	}
+	
+//--></script>
+{{ footer }} 
+

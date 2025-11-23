@@ -1,0 +1,28 @@
+{% if testmode %}
+<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ text_testmode }}</div>
+{% endif %}
+<div class="col-sm-12" style="border:2px solid #000; margin-bottom:25px;">
+  <div class="row" style="padding:10px; background-color:#b2fce4; display:flex; align-items:center; font-size:16px;">
+    <div class="col-xs-12 col-md-6">{{ afterpay_logo }}</div>
+    <div class="col-xs-12 col-md-6 text-center">{{ text_installment }}</div>
+  </div>
+  <div style="padding-left:35px; padding-right:35px;">
+    <div class="text-center" style="margin:20px;">{{ text_afterpay_info }}</div>
+    <afterpay-price-table
+      style="font-weight:700;"
+      data-amount="{{ afterpay_amount }}"
+      data-locale="{{ afterpay_locale }}"
+      data-currency="{{ afterpay_currency }}"
+    ></afterpay-price-table>
+    <div class="text-center" style="margin-bottom:20px;"><a style="color:inherit; text-decoration:underline;" href="{{ terms_href }}" target="_blank">{{ text_terms }}</a></div>
+  </div>
+</div>
+<br /><br />
+<div class="buttons text-right">
+  <a href="{{ continue }}" class="btn btn-primary" id="button-confirm" data-loading-text="{{ text_loading }}">{{ button_continue }}</a>
+</div>
+<script type="text/javascript"><!--
+$('#button-confirm').on('click', function() {
+    $('#button-confirm').prop('disabled', true).button('loading');
+});
+//--></script>

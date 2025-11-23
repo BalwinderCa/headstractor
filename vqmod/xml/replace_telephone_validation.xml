@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <id>replace-telephone-validation-1.9</id>
+    <name>replace-telephone-validation-1.9</name>
+    <code>replace-telephone-validation-1.9</code>
+    <version>1.9</version>
+    <vqmver>2.x</vqmver>
+    <author>Heads Tractor Spares</author>
+    <link>https://www.headstractor.com.au/</link>
+
+    <file path="catalog/controller/checkout/guest.php" info="Better phone validation">
+        <operation>
+            <search><![CDATA[if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {]]></search>
+            <add position="replace"><![CDATA[if (!(0 == preg_match('/[^0-9 ()+]/', $this->request->post['telephone'])) || (utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {]]></add>
+        </operation>
+    </file>
+</modification>

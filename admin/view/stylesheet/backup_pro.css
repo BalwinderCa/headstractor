@@ -1,0 +1,64 @@
+.btn-default.yes.active, .btn-default.yes.active:hover, .btn-default.yes.active:focus {
+	background-color: #4cb64c;
+	border-color: #409e40;
+	color: #fff;
+}
+label.btn.btn-default.no.active, .btn-default.no.active:hover, .btn-default.no.active:focus {
+    background-color: #c00;
+    border-color: #900;
+	color: #fff;
+}
+.nav-tabs > li > a {
+    color: #fff;
+    background-color: #a5a5a5;
+}.nav-tabs > li > a:hover {
+    color: #000;
+}
+div.troubleshooting h3 {
+	font-size: 1.5em;
+}
+div.troubleshooting p, div.troubleshooting ul > li {
+	font-size: 1.2em;
+	color: #808080;
+	margin-left: 40px;
+}
+div.troubleshooting a {
+	font-size: 1.2em;
+/*	color: #808080;  */
+	margin-left: 40px;
+}
+div.troubleshooting .alert {
+    font-size: 1.2em;
+}
+.ts-strong {
+	font-weight: 600;
+	font-style: italic;
+	color: #666;
+}
+input[type="file"]{
+   font-size: 1.5rem;
+}
+input[type="file"]::file-selector-button{
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #5bb75b;
+  background-image: -moz-linear-gradient(top, #62c462, #51a351);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+  background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+  background-image: -o-linear-gradient(top, #62c462, #51a351);
+  background-image: linear-gradient(to bottom, #62c462, #51a351);
+  background-repeat: repeat-x;
+  border-color: #51a351 #51a351 #387038;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  border-radius: 5px;
+  padding: .8rem 1.4rem;
+  cursor: pointer;
+}
+input[type="file"]::file-selector-button:hover{
+  color: #ffffff;
+  background-color: #3a7f3a;
+  background-image: none;
+}
+

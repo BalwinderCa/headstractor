@@ -1,0 +1,7 @@
+#remove .htaccess password protection from a folder connector
+<IfModule mod_rewrite.c>
+
+#Disable rewriting
+RewriteEngine Off
+
+</IfModule>

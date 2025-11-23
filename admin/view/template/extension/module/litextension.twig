@@ -1,0 +1,20 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="container-fluid">
+        {% if error.permission %}
+            <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_permission }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+{#        {% elseif error|length > 0 %}#}
+{#            <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}#}
+{#                <button type="button" class="close" data-dismiss="alert">&times;</button>#}
+{#            </div>#}
+        {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <iframe id="plugin-content" src="{{ url_home }}" frameborder="0" width="100%" style="height: 90vh"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{{ footer }}

@@ -1,0 +1,361 @@
+2025-03-31 02:35:30 - Database Backup
+2025-03-31 02:35:30 - Tables To Be Backed Up:
+2025-03-31 02:35:30 - Array
+(
+    [0] => oc_address
+    [1] => oc_afterpay_config
+    [2] => oc_afterpay_order
+    [3] => oc_afterpay_order_transaction
+    [4] => oc_api
+    [5] => oc_api_ip
+    [6] => oc_api_session
+    [7] => oc_attribute
+    [8] => oc_attribute_description
+    [9] => oc_attribute_group
+    [10] => oc_attribute_group_description
+    [11] => oc_backup
+    [12] => oc_banner
+    [13] => oc_banner_image
+    [14] => oc_cart
+    [15] => oc_category
+    [16] => oc_category_description
+    [17] => oc_category_filter
+    [18] => oc_category_path
+    [19] => oc_category_to_layout
+    [20] => oc_category_to_store
+    [21] => oc_country
+    [22] => oc_coupon
+    [23] => oc_coupon_category
+    [24] => oc_coupon_history
+    [25] => oc_coupon_product
+    [26] => oc_currency
+    [27] => oc_custom_field
+    [28] => oc_custom_field_customer_group
+    [29] => oc_custom_field_description
+    [30] => oc_custom_field_value
+    [31] => oc_custom_field_value_description
+    [32] => oc_customer
+    [33] => oc_customer_activity
+    [34] => oc_customer_affiliate
+    [35] => oc_customer_approval
+    [36] => oc_customer_group
+    [37] => oc_customer_group_description
+    [38] => oc_customer_history
+    [39] => oc_customer_ip
+    [40] => oc_customer_login
+    [41] => oc_customer_online
+    [42] => oc_customer_reward
+    [43] => oc_customer_search
+    [44] => oc_customer_transaction
+    [45] => oc_customer_wishlist
+    [46] => oc_download
+    [47] => oc_download_description
+    [48] => oc_event
+    [49] => oc_eway_card
+    [50] => oc_eway_order
+    [51] => oc_eway_transactions
+    [52] => oc_extendons_checkout_field_rules
+    [53] => oc_extendons_checkout_field_sub_rules
+    [54] => oc_extendons_checkout_fields
+    [55] => oc_extendons_checkout_fields_data
+    [56] => oc_extendons_checkout_fields_data_columns
+    [57] => oc_extendons_checkout_fields_options
+    [58] => oc_extendons_checkout_fields_order
+    [59] => oc_extension
+    [60] => oc_extension_install
+    [61] => oc_extension_path
+    [62] => oc_filter
+    [63] => oc_filter_description
+    [64] => oc_filter_group
+    [65] => oc_filter_group_description
+    [66] => oc_geo_zone
+    [67] => oc_googleshopping_category
+    [68] => oc_googleshopping_product
+    [69] => oc_googleshopping_product_status
+    [70] => oc_googleshopping_product_target
+    [71] => oc_googleshopping_target
+    [72] => oc_information
+    [73] => oc_information_description
+    [74] => oc_information_to_layout
+    [75] => oc_information_to_store
+    [76] => oc_language
+    [77] => oc_layout
+    [78] => oc_layout_module
+    [79] => oc_layout_route
+    [80] => oc_length_class
+    [81] => oc_length_class_description
+    [82] => oc_location
+    [83] => oc_manufacturer
+    [84] => oc_manufacturer_to_store
+    [85] => oc_marketing
+    [86] => oc_modification
+    [87] => oc_module
+    [88] => oc_option
+    [89] => oc_option_description
+    [90] => oc_option_value
+    [91] => oc_option_value_description
+    [92] => oc_order
+    [93] => oc_order_history
+    [94] => oc_order_option
+    [95] => oc_order_product
+    [96] => oc_order_recurring
+    [97] => oc_order_recurring_transaction
+    [98] => oc_order_shipment
+    [99] => oc_order_status
+    [100] => oc_order_total
+    [101] => oc_order_voucher
+    [102] => oc_paypal_checkout_integration_order
+    [103] => oc_product
+    [104] => oc_product_attribute
+    [105] => oc_product_description
+    [106] => oc_product_discount
+    [107] => oc_product_filter
+    [108] => oc_product_image
+    [109] => oc_product_option
+    [110] => oc_product_option_value
+    [111] => oc_product_recurring
+    [112] => oc_product_related
+    [113] => oc_product_reward
+    [114] => oc_product_special
+    [115] => oc_product_to_category
+    [116] => oc_product_to_download
+    [117] => oc_product_to_layout
+    [118] => oc_product_to_store
+    [119] => oc_recurring
+    [120] => oc_recurring_description
+    [121] => oc_return
+    [122] => oc_return_action
+    [123] => oc_return_history
+    [124] => oc_return_reason
+    [125] => oc_return_status
+    [126] => oc_review
+    [127] => oc_seo_url
+    [128] => oc_session
+    [129] => oc_setting
+    [130] => oc_shipping_courier
+    [131] => oc_statistics
+    [132] => oc_stock_status
+    [133] => oc_store
+    [134] => oc_tax_class
+    [135] => oc_tax_rate
+    [136] => oc_tax_rate_to_customer_group
+    [137] => oc_tax_rule
+    [138] => oc_theme
+    [139] => oc_translation
+    [140] => oc_upload
+    [141] => oc_user
+    [142] => oc_user_group
+    [143] => oc_voucher
+    [144] => oc_voucher_history
+    [145] => oc_voucher_theme
+    [146] => oc_voucher_theme_description
+    [147] => oc_weight_class
+    [148] => oc_weight_class_description
+    [149] => oc_zone
+    [150] => oc_zone_to_geo_zone
+)
+
+2025-03-31 02:35:30 - Starting Database Backup
+2025-03-31 02:35:30 - Processing: oc_address
+2025-03-31 02:35:30 - Processing: oc_afterpay_config
+2025-03-31 02:35:30 - Processing: oc_afterpay_order
+2025-03-31 02:35:30 - Processing: oc_afterpay_order_transaction
+2025-03-31 02:35:30 - Processing: oc_api
+2025-03-31 02:35:30 - Processing: oc_api_ip
+2025-03-31 02:35:30 - Processing: oc_api_session
+2025-03-31 02:35:30 - Processing: oc_attribute
+2025-03-31 02:35:30 - Processing: oc_attribute_description
+2025-03-31 02:35:30 - Processing: oc_attribute_group
+2025-03-31 02:35:30 - Processing: oc_attribute_group_description
+2025-03-31 02:35:30 - Processing: oc_backup
+2025-03-31 02:35:30 - Processing: oc_banner
+2025-03-31 02:35:30 - Processing: oc_banner_image
+2025-03-31 02:35:30 - Processing: oc_cart
+2025-03-31 02:35:30 - Processing: oc_category
+2025-03-31 02:35:30 - Processing: oc_category_description
+2025-03-31 02:35:30 - Processing: oc_category_filter
+2025-03-31 02:35:30 - Processing: oc_category_path
+2025-03-31 02:35:30 - Processing: oc_category_to_layout
+2025-03-31 02:35:30 - Processing: oc_category_to_store
+2025-03-31 02:35:30 - Processing: oc_country
+2025-03-31 02:35:30 - Processing: oc_coupon
+2025-03-31 02:35:30 - Processing: oc_coupon_category
+2025-03-31 02:35:30 - Processing: oc_coupon_history
+2025-03-31 02:35:30 - Processing: oc_coupon_product
+2025-03-31 02:35:30 - Processing: oc_currency
+2025-03-31 02:35:30 - Processing: oc_custom_field
+2025-03-31 02:35:30 - Processing: oc_custom_field_customer_group
+2025-03-31 02:35:30 - Processing: oc_custom_field_description
+2025-03-31 02:35:30 - Processing: oc_custom_field_value
+2025-03-31 02:35:30 - Processing: oc_custom_field_value_description
+2025-03-31 02:35:30 - Processing: oc_customer
+2025-03-31 02:35:31 - Processing: oc_customer_activity
+2025-03-31 02:35:31 - Processing: oc_customer_affiliate
+2025-03-31 02:35:31 - Processing: oc_customer_approval
+2025-03-31 02:35:31 - Processing: oc_customer_group
+2025-03-31 02:35:31 - Processing: oc_customer_group_description
+2025-03-31 02:35:31 - Processing: oc_customer_history
+2025-03-31 02:35:31 - Processing: oc_customer_ip
+2025-03-31 02:35:31 - Processing: oc_customer_login
+2025-03-31 02:35:31 - Processing: oc_customer_online
+2025-03-31 02:35:31 - Processing: oc_customer_reward
+2025-03-31 02:35:31 - Processing: oc_customer_search
+2025-03-31 02:35:31 - Processing: oc_customer_transaction
+2025-03-31 02:35:31 - Processing: oc_customer_wishlist
+2025-03-31 02:35:31 - Processing: oc_download
+2025-03-31 02:35:31 - Processing: oc_download_description
+2025-03-31 02:35:31 - Processing: oc_event
+2025-03-31 02:35:31 - Processing: oc_eway_card
+2025-03-31 02:35:31 - Processing: oc_eway_order
+2025-03-31 02:35:31 - Processing: oc_eway_transactions
+2025-03-31 02:35:31 - Processing: oc_extendons_checkout_field_rules
+2025-03-31 02:35:31 - Processing: oc_extendons_checkout_field_sub_rules
+2025-03-31 02:35:31 - Processing: oc_extendons_checkout_fields
+2025-03-31 02:35:31 - Processing: oc_extendons_checkout_fields_data
+2025-03-31 02:35:31 - Processing: oc_extendons_checkout_fields_data_columns
+2025-03-31 02:35:31 - Processing: oc_extendons_checkout_fields_options
+2025-03-31 02:35:31 - Processing: oc_extendons_checkout_fields_order
+2025-03-31 02:35:31 - Processing: oc_extension
+2025-03-31 02:35:31 - Processing: oc_extension_install
+2025-03-31 02:35:31 - Processing: oc_extension_path
+2025-03-31 02:35:31 - Processing: oc_filter
+2025-03-31 02:35:31 - Processing: oc_filter_description
+2025-03-31 02:35:31 - Processing: oc_filter_group
+2025-03-31 02:35:31 - Processing: oc_filter_group_description
+2025-03-31 02:35:31 - Processing: oc_geo_zone
+2025-03-31 02:35:31 - Processing: oc_googleshopping_category
+2025-03-31 02:35:31 - Processing: oc_googleshopping_product
+2025-03-31 02:35:31 - Processing: oc_googleshopping_product_status
+2025-03-31 02:35:31 - Processing: oc_googleshopping_product_target
+2025-03-31 02:35:31 - Processing: oc_googleshopping_target
+2025-03-31 02:35:31 - Processing: oc_information
+2025-03-31 02:35:31 - Processing: oc_information_description
+2025-03-31 02:35:31 - Processing: oc_information_to_layout
+2025-03-31 02:35:31 - Processing: oc_information_to_store
+2025-03-31 02:35:31 - Processing: oc_language
+2025-03-31 02:35:31 - Processing: oc_layout
+2025-03-31 02:35:31 - Processing: oc_layout_module
+2025-03-31 02:35:31 - Processing: oc_layout_route
+2025-03-31 02:35:31 - Processing: oc_length_class
+2025-03-31 02:35:31 - Processing: oc_length_class_description
+2025-03-31 02:35:31 - Processing: oc_location
+2025-03-31 02:35:31 - Processing: oc_manufacturer
+2025-03-31 02:35:31 - Processing: oc_manufacturer_to_store
+2025-03-31 02:35:31 - Processing: oc_marketing
+2025-03-31 02:35:31 - Processing: oc_modification
+2025-03-31 02:35:31 - Processing: oc_module
+2025-03-31 02:35:31 - Processing: oc_option
+2025-03-31 02:35:31 - Processing: oc_option_description
+2025-03-31 02:35:31 - Processing: oc_option_value
+2025-03-31 02:35:31 - Processing: oc_option_value_description
+2025-03-31 02:35:31 - Processing: oc_order
+2025-03-31 02:35:31 - Processing: oc_order_history
+2025-03-31 02:35:32 - Processing: oc_order_option
+2025-03-31 02:35:32 - Processing: oc_order_product
+2025-03-31 02:35:32 - Processing: oc_order_recurring
+2025-03-31 02:35:32 - Processing: oc_order_recurring_transaction
+2025-03-31 02:35:32 - Processing: oc_order_shipment
+2025-03-31 02:35:32 - Processing: oc_order_status
+2025-03-31 02:35:32 - Processing: oc_order_total
+2025-03-31 02:35:32 - Processing: oc_order_voucher
+2025-03-31 02:35:32 - Processing: oc_paypal_checkout_integration_order
+2025-03-31 02:35:32 - Processing: oc_product
+2025-03-31 02:35:32 - Processing: oc_product_attribute
+2025-03-31 02:35:32 - Processing: oc_product_description
+2025-03-31 02:35:32 - Processing: oc_product_discount
+2025-03-31 02:35:32 - Processing: oc_product_filter
+2025-03-31 02:35:32 - Processing: oc_product_image
+2025-03-31 02:35:32 - Processing: oc_product_option
+2025-03-31 02:35:32 - Processing: oc_product_option_value
+2025-03-31 02:35:32 - Processing: oc_product_recurring
+2025-03-31 02:35:32 - Processing: oc_product_related
+2025-03-31 02:35:32 - Processing: oc_product_reward
+2025-03-31 02:35:32 - Processing: oc_product_special
+2025-03-31 02:35:32 - Processing: oc_product_to_category
+2025-03-31 02:35:32 - Processing: oc_product_to_download
+2025-03-31 02:35:32 - Processing: oc_product_to_layout
+2025-03-31 02:35:32 - Processing: oc_product_to_store
+2025-03-31 02:35:33 - Processing: oc_recurring
+2025-03-31 02:35:33 - Processing: oc_recurring_description
+2025-03-31 02:35:33 - Processing: oc_return
+2025-03-31 02:35:33 - Processing: oc_return_action
+2025-03-31 02:35:33 - Processing: oc_return_history
+2025-03-31 02:35:33 - Processing: oc_return_reason
+2025-03-31 02:35:33 - Processing: oc_return_status
+2025-03-31 02:35:33 - Processing: oc_review
+2025-03-31 02:35:33 - Processing: oc_seo_url
+2025-03-31 02:35:33 - Processing: oc_session
+2025-03-31 02:35:33 - Processing: oc_setting
+2025-03-31 02:35:33 - Processing: oc_shipping_courier
+2025-03-31 02:35:33 - Processing: oc_statistics
+2025-03-31 02:35:33 - Processing: oc_stock_status
+2025-03-31 02:35:33 - Processing: oc_store
+2025-03-31 02:35:33 - Processing: oc_tax_class
+2025-03-31 02:35:33 - Processing: oc_tax_rate
+2025-03-31 02:35:33 - Processing: oc_tax_rate_to_customer_group
+2025-03-31 02:35:33 - Processing: oc_tax_rule
+2025-03-31 02:35:33 - Processing: oc_theme
+2025-03-31 02:35:33 - Processing: oc_translation
+2025-03-31 02:35:33 - Processing: oc_upload
+2025-03-31 02:35:33 - Processing: oc_user
+2025-03-31 02:35:33 - Processing: oc_user_group
+2025-03-31 02:35:33 - Processing: oc_voucher
+2025-03-31 02:35:33 - Processing: oc_voucher_history
+2025-03-31 02:35:33 - Processing: oc_voucher_theme
+2025-03-31 02:35:33 - Processing: oc_voucher_theme_description
+2025-03-31 02:35:33 - Processing: oc_weight_class
+2025-03-31 02:35:33 - Processing: oc_weight_class_description
+2025-03-31 02:35:33 - Processing: oc_zone
+2025-03-31 02:35:33 - Processing: oc_zone_to_geo_zone
+2025-03-31 02:35:33 - Redirecting to avoid timeout . . .
+2025-03-31 02:35:33 - Zipping database_2025-03-31_02-35-30_part_01.sql
+2025-03-31 02:35:38 - Redirecting to avoid timeout . . .
+2025-03-31 02:35:38 - Consolidating multiple backups: ../backup_pro/database/heads-tractor-spares-backup_db_2025-03-31_02-35-30.sql.zip
+2025-03-31 02:35:38 - Removing temporary files
+2025-03-31 02:35:38 - Backup Completed Successfully
+2025-03-31 02:36:01 - Sending First Test Email.
+2025-03-31 02:37:56 - database_backup_folder: backup_pro/database/
+2025-03-31 02:37:56 - SQL File Path: backup_pro/database/database_2025-03-31_02-37-53.sql
+2025-03-31 02:37:56 - Sending First Test Email.
+2025-03-31 02:39:16 - database_backup_folder: backup_pro/database/
+2025-03-31 02:39:16 - SQL File Path: backup_pro/database/database_2025-03-31_02-39-13.sql
+2025-03-31 02:39:16 - Sending First Test Email.
+2025-03-31 02:42:18 - database_backup_folder: backup_pro/database/
+2025-03-31 02:42:18 - SQL File Path: backup_pro/database/database_2025-03-31_02-42-16.sql
+2025-03-31 02:42:18 - Sending First Test Email.
+2025-03-31 02:45:34 - database_backup_folder: backup_pro/database/
+2025-03-31 02:45:34 - SQL File Path: backup_pro/database/database_2025-03-31_02-45-31.sql
+2025-03-31 02:45:34 - Sending First Test Email.
+2025-03-31 02:50:26 - database_backup_folder: backup_pro/database/
+2025-03-31 02:50:26 - SQL File Path: backup_pro/database/database_2025-03-31_02-50-23.sql
+2025-03-31 02:50:30 - Sending First Test Email.
+2025-03-31 02:51:39 - database_backup_folder: backup_pro/database/
+2025-03-31 02:51:39 - SQL File Path: backup_pro/database/database_2025-03-31_02-51-37.sql
+2025-03-31 02:51:44 - Sending First Test Email.
+2025-03-31 02:55:55 - SQL Backup File Complete
+2025-03-31 02:55:55 - ../backup_pro/database/database_clone.sql  >  49.8 Mb
+2025-03-31 02:56:12 - database_backup_folder: backup_pro/database/
+2025-03-31 02:56:12 - SQL File Path: backup_pro/database/database_2025-03-31_02-56-09.sql
+2025-03-31 02:56:17 - Sending First Test Email.
+2025-03-31 02:56:51 - database_backup_folder: backup_pro/database/
+2025-03-31 02:56:51 - SQL File Path: backup_pro/database/database_2025-03-31_02-56-48.sql
+2025-03-31 02:56:56 - Sending First Test Email.
+2025-03-31 03:01:03 - database_backup_folder: backup_pro/database/
+2025-03-31 03:01:03 - SQL File Path: backup_pro/database/database_2025-03-31_03-01-00.sql
+2025-03-31 03:02:13 - database_backup_folder: backup_pro/database/
+2025-03-31 03:02:13 - SQL File Path: backup_pro/database/database_2025-03-31_03-02-09.sql
+2025-03-31 03:06:59 - Sending Second Test Email.
+2025-03-31 03:13:42 - Sending First Test Email.
+2025-03-31 03:15:46 - Sending First Test Email.
+2025-03-31 03:16:45 - Sending First Test Email.
+2025-03-31 03:17:06 - Sending First Test Email.
+2025-03-31 03:23:54 - Sending First Test Email.
+2025-03-31 03:25:18 - Sending First Test Email.
+2025-03-31 03:33:21 - Sending First Test Email.
+2025-03-31 03:35:48 - Sending First Test Email.
+2025-03-31 03:43:13 - Sending First Test Email.
+2025-03-31 03:45:19 - Sending First Test Email.
+2025-03-31 03:46:56 - Sending First Test Email.
+2025-03-31 04:18:42 - Sending First Test Email.
+2025-03-31 10:23:24 - Sending First Test Email.
+2025-03-31 10:26:14 - Sending First Test Email.

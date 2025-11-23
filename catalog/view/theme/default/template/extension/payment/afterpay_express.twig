@@ -1,0 +1,103 @@
+<script>
+function initAfterpay () {
+    AfterPay.initializeForPopup({
+        countryCode: '{{ country_code }}',
+        onCommenceCheckout: function(actions) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/afterpay/expressCheckout',
+                type: 'post',
+                data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+                dataType: 'json',
+                success: function(json) {
+                    if (json['success'] && json['token']) {
+                        actions.resolve(json['token']);
+                    } else if (json['error']) {
+                        actions.reject(AfterPay.CONSTANTS.SERVICE_UNAVAILABLE);
+                        AfterPay.close();
+                        alert(json['error']);
+                    } else {
+                        actions.reject(AfterPay.CONSTANTS.BAD_RESPONSE);
+                        AfterPay.close();
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    actions.reject(AfterPay.CONSTANTS.BAD_RESPONSE);
+                    AfterPay.close();
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            })
+        },
+        onShippingAddressChange: function (data, actions) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/afterpay/expressCheckoutShippingAddress',
+                type: 'post',
+                data: data,
+                dataType: 'json',
+                success: function(json) {
+                    if (json.length == 0) {
+                        actions.reject(AfterPay.CONSTANTS.SHIPPING_UNSUPPORTED);
+                    } else {
+                        actions.resolve(json);
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    actions.reject(AfterPay.CONSTANTS.BAD_RESPONSE);
+                }
+            });
+        },
+        onShippingOptionChange: function (data) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/afterpay/expressCheckoutUpdateShippingMethod',
+                type: 'post',
+                data: data
+            });
+        },
+        onComplete: function (event) {
+            if (event.data.status == "SUCCESS") {
+                $.ajax({
+                    url: 'index.php?route=extension/payment/afterpay/expressCheckoutComplete',
+                    type: 'post',
+                    data: event.data,
+                    dataType: 'json',
+                    success: function(json) {
+                        if (json['redirect']) {
+                            window.location.replace(json['redirect']);
+                        } else if (json['error']) {
+                            alert(json['error']);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
+            }
+        },
+        target: '#afterpay-express-button',
+        buyNow: true,
+        pickup: false,
+    });
+}
+</script>
+<script src="{{ afterpay_js_href }}"></script>
+<script type="text/javascript">
+$(document).on('ready', function() {
+    initAfterpay();
+});
+</script>
+<style>
+#afterpay-express-button {
+    border: none;
+    background: none;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 5px;
+    width: 100%;
+}
+#afterpay-express-button.product-page > img {
+    width: 100% !important;
+}
+#afterpay-express-button.cart-page > img {
+    height: 54px !important;
+}
+</style>

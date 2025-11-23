@@ -1,0 +1,57 @@
+# OpenCart specific
+.htaccess
+/config.php
+/admin/config.php
+
+!index.html
+
+# Directories
+download/
+image/data/
+image/cache/
+system/cache/
+system/logs/
+system/storage/
+vendor/
+
+# vQmod
+vqmod/logs/*
+vqmod/vqcache/*
+vqmod/checked.cache
+vqmod/mods.cache
+
+# Environment files
+.env
+*.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# Backup files
+*.bak
+*.backup
+backup_pro/
+
+# Stats
+stats/
+
+# phpMyAdmin (if you want to exclude it)
+# phpmyadmin/
+

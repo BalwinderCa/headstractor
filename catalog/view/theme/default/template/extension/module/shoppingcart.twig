@@ -1,0 +1,48 @@
+<div id="shoppingcart">
+<div class="panel panel-default">
+  <div class="panel-heading">{{ heading_title }}</div>
+  <div class="panel-body">
+    {% if products or vouchers %} 
+    <div class="mini-cart-info">
+      <table>
+        {% for product in products %} 
+        <tr>
+          <td class="name"><a href="{{ product.href }}">{{ product.name }}</a>
+            <div>
+              {% for option in product.option %} 
+              - <small>{{ option.name }} {{ option.value }}</small><br />
+              {% endfor %}
+            </div></td>
+          <td class="quantity">x&nbsp;{{ product.quantity }}</td>
+          <td class="total">{{ product.total }}</td>
+          <td class="remove"><img src="catalog/view/theme/default/image/shoppingcart-remove.gif" alt="{{ button_remove }}" title="{{ button_remove }}" onclick="$('#shoppingcart').load('index.php?route=extension/module/shoppingcart&direct=1&remove={{ product.key }} #shoppingcart > *'); cart.remove('{{ product.key }}');" /></td>
+        </tr>
+        {% endfor %} 
+        {% for voucher in vouchers %} 
+        <tr>
+          <td class="image"></td>
+          <td class="name">{{ voucher.description }}</td>
+          <td class="quantity">x&nbsp;1</td>
+          <td class="total">{{ voucher.amount }}</td>
+          <td class="remove"><img src="catalog/view/theme/default/image/shoppingcart-remove.gif" alt="{{ button_remove }}" title="{{ button_remove }}" onclick="$('#shoppingcart').load('index.php?route=extension/module/shoppingcart&direct=1&remove={{ voucher.key }} #shoppingcart > *'); voucher.remove('{{ voucher.key }}');" /></td>
+        </tr>
+        {% endfor %} 
+      </table>
+    </div>
+    <div class="mini-cart-total">
+      <table>
+        {% for total in totals %} 
+        <tr>
+          <td align="right"><b>{{ total.title }} :</b></td>
+          <td align="right">{{ total.text }}</td>
+        </tr>
+        {% endfor %} 
+      </table>
+    </div>
+    <div class="checkout"><a href="{{ cart }}">{{ text_cart }}</a> | <a href="{{ checkout }}">{{ text_checkout }}</a></div>
+    {% else %}   
+    <div class="empty">{{ text_empty }}</div>
+    {% endif %}
+  </div>
+</div>
+</div>

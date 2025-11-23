@@ -1,0 +1,78 @@
+body {
+
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 400 !important;
+    color: #00911A !important;
+    font-size: 1.5rem !important;
+    /*line-height: 3rem !important;*/
+    width: 100% !important;
+}
+
+#content > div:nth-child(3) {
+    text-align: center !important;
+}
+
+a {
+ /*font-weight: 800;*/
+ color: #00911A !important;
+}
+
+#menu {
+    background-color: #00911A !important;
+    background-image: linear-gradient(to bottom, #53C317, #168F1B) !important;
+    background-repeat: repeat-x !important;
+    border-color: #1f90bb #1f90bb #145e7a !important;
+    min-height: 40px !important;
+}
+
+#menu a {
+    color: white !important;
+
+}
+
+header .container .row{
+    background-image: url("/image/header_background.jpg") !important;
+    background-color: #D8E989 !important;
+    background-repeat: no-repeat;
+    background-position: top right;
+    border-right: 1.4rem solid white;
+    border-left: 1.55rem solid white;
+}
+
+#search input {
+    font-size: 1.6rem;
+}
+
+#cart-total {
+    font-size: 1.6rem;
+}
+
+#shoppingcart > div > div.panel-body {
+    padding: 0;
+    padding-left: .4rem;
+}
+
+#shoppingcart .name, #shoppingcart .quantity, #shoppingcart .total, #shoppingcart .remove {
+    padding:  .4rem;
+}
+
+#shoppingcart .quantity {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#shoppingcart .checkout {
+    padding: 0 0 1rem .4rem;
+}
+
+#shoppingcart .name a {
+    font-size: 1.4rem;
+}
+
+#content > div:nth-child(1) > h2 {
+    text-align: center;
+}
+
+.btn-primary {
+    color: white !important;
+}

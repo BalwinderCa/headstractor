@@ -1,0 +1,128 @@
+<html>
+    <head>
+        <title>LitExtension Connector Setup Guide</title>
+        <style type="text/css">
+            html{
+                background: #e0e0e0;
+            }
+            body{
+            	padding: 0;
+            	margin: 0;
+            }
+            a{
+                color: #428BCA;
+            }
+            ol.list li{
+                margin-top: 10px;
+            }
+            .container{
+            	max-width:1000px;
+                margin: 0 auto;
+                font-size: 14px;
+                font-family: Arial, sans-serif;
+                line-height: 1.5;
+                background: #FFFFFF;
+                color: #666;
+                border: 1px solid #E4E4E4;
+                padding: 30px;
+            }
+            .content{
+            	text-align: left;
+            }
+            .logo{
+                width: 300px;
+                margin: 20px auto;
+            }
+            .button{
+                display: table;
+                margin: 0 auto;
+                background: #8BC34A;
+                padding: 10px 30px;
+                text-decoration: none;
+                color: #fff;
+            }
+            .middle{
+                text-align: center;
+            }
+
+         </style>
+    </head>
+<body>
+	<div class="container">
+		<div style="text-align: center;">
+			<img src="https://cdn.litextension.com/wp-content/themes/litextension/images/logo.svg" class="logo" />
+			<h1>LitExtension Connector Setup Guide</h1>
+		</div>
+		<div class="content">
+			<p dir="ltr">Dear Valued Customer,</p>
+
+			<p dir="ltr">It's such an honor to have you here with us. This document is made by LitExtension to help you set up our connector easier and faster.</p>
+			<p dir="ltr">We’ve created a tutorial video to help you better understand and visualize how the connector setup process is like, check it out below:</p>
+
+			<p style="text-align: center;"><span class="fr-video fr-fvc fr-dvi fr-draggable" contenteditable="false"><iframe width="640" height="360" src="https://www.youtube.com/embed/0MqMLHwL0AM" frameborder="0" allowfullscreen="" class="fr-draggable"></iframe></span></p>
+
+			<p dir="ltr">In case of any problems during the installation process, make sure to contact us right away. LitExtension team is here to help!</p>
+
+			<p dir="ltr"><a class="button" target="_blank" href="https://v2.zopim.com/widget/livechat.html?api_calls=%5B%5D&hostname=litextension.com&key=1J6IqRIKBfs0bp4ElqxLZZvrytVZXZst&lang=en&">Chat with us</a></p>
+
+			<p dir="ltr">Following is a step-by-step guide for those who are not a big fan of watching videos.</p>
+
+			<p dir="ltr">The procedure is the same for macOS, Windows and Linux users. You can use FileZilla or any other FTP applications (WinSCP, FileFTP, CuteFTP).</p>
+
+			<ul>
+				<li>
+
+					<p>If you haven’t had an FTP client yet, you can have it set up with a few simple steps. Please refer to <a href="http://www.youtube.com/watch?v=Wtqq1Mn1ltA">this video</a> for a complete guide to FTP installation.</p>
+				</li>
+				<li>
+
+					<p>If you don’t have FTP access details, contact your hosting provider or developer to get them. In case they are unable to help, feel free to contact our 24/7 support team.</p>
+				</li>
+			</ul>
+
+			<p dir="ltr"><b>Step 1:</b> At your <b>Migration Setup</b> page, after providing your Source and Target Cart URLs, you can easily download the connector by clicking <b>"Download LitExtension Connector"</b>. You will receive a zip file named <b>"le_connector"</b>.</p>
+
+			<p dir="ltr"><b>Step 2:</b> Unzip the <b>"le_connector"</b> file and upload it to your Source and Target stores’ root folders via FTP access. Whichever FTP client you are using (FileZilla, WinSCP, FileFTP, CuteFTP), enter the root folder of your store and upload the <b>"le_connector"</b> folder to it.</p>
+            <p dir="ltr">You can follow <a href="https://litextension.com/faq/docs/userguide-demo/connector/root-folder-and-how-to-find-it/">the guideline about root folder and how to find your store&rsquo;s root folder here</a>.</p>
+            <p dir="ltr">Note: For Wordpress (WooCommerce, Shopp, WP e-Commerce) or Joomla (AceShop, JooCart, VirtueMart, MijoShop) e-commerce plugins the &quot;le_connector&quot; folder should be uploaded to the root directory where your CMS (Wordpress/Joomla) is installed, not your e-commerce plugin directory.</p>
+
+
+			<p dir="ltr"><b>Step 3:</b> After uploading the connector, here’s how to check whether it has been installed correctly:</p>
+            <ul>
+                <li>
+
+                    <p>Click on the instructed link.</p>
+                </li>
+                <li>
+
+                    <p>Type into your browser: <b>http://YourStoreUrl/le_connector/connector.php</b>.</p>
+                </li>
+            </ul>
+            <p dir="ltr">If you see the message <b>"Connector Installed"</b> show up, the connector has been installed properly and you can proceed to the next step of your migration. Otherwise, the connector installation has failed due to permission-related errors. To fix this, please set the permission for your store’s root folder as follows:</p>
+			<ul>
+				<li>
+
+					<p>&quot;connector.php&quot; - 644 or 666, depending on your server configuration;</p>
+				</li>
+				<li>
+
+					<p>&quot;/le_connector&quot; folder - 755 or 777, depending on your server configuration.</p>
+				</li>
+			</ul>
+
+			<p dir="ltr">Or else, don’t hesitate to contact our support team for further assistance.</p>
+
+			<p dir="ltr"><b>Step 4:</b> In order to copy images during your migration, make sure to set the "write" permission for the image directory and ALL the subfolders/files it contains on your Target Store (chmod 777).</p>
+
+			<p dir="ltr">If you have any questions, you can check out the following <a href="https://litextension.com/faq/">FAQ</a> or feel free to contact our Support Team.</p>
+
+			<p dir="ltr">Sincerely yours,</p>
+
+			<p dir="ltr">LitExtension Team</p>
+
+			<p dir="ltr"><a href="http://www.litextension.com">www.litextension.com</a></p>
+
+		</div>
+	</div>
+</body>
+</html>

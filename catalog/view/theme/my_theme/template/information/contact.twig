@@ -1,0 +1,229 @@
+{{ header }}
+<div id="information-contact" class="container">
+    <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+            <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+    </ul>
+    <div class="row">{{ column_left }}
+        {% if column_left and column_right %}
+            {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+            {% set class = 'col-sm-9' %}
+        {% else %}
+            {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">{{ content_top }}
+            <h1>{{ heading_title }}</h1>
+            <h3>{{ text_location }}</h3>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        {% if image %}
+                            <div class="col-sm-3"><img src="{{ image }}" alt="{{ store }}" title="{{ store }}" class="img-thumbnail" /></div>
+                        {% endif %}
+                        <div class="col-sm-3"><strong>{{ store }}</strong><br />
+                            <address>
+                                {{ address }}
+                            </address>
+                            {% if geocode %}
+                                <a href="https://maps.google.com/maps?q={{ geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="btn btn-info"><i class="fa fa-map-marker"></i> {{ button_map }}</a>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-3"><strong>{{ text_telephone }}</strong><br>
+                            {{ telephone }}<br />
+                            <br />
+                            {% if fax %}
+                                <strong>{{ text_fax }}</strong><br>
+                                {{ fax }}
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-3">
+                            {% if open %}
+                                <strong>{{ text_open }}</strong><br />
+                                {{ open }}<br />
+                                <br />
+                            {% endif %}
+                            {% if comment %}
+                                <strong>{{ text_comment }}</strong><br />
+                                {{ comment }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if locations %}
+                <h3>{{ text_store }}</h3>
+                <div class="panel-group" id="accordion">
+                    {% for location in locations %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#collapse-location{{ location.location_id }}" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">{{ location.name }} <i class="fa fa-caret-down"></i></a></h4>
+                            </div>
+                            <div class="panel-collapse collapse" id="collapse-location{{ location.location_id }}">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        {% if location.image %}
+                                            <div class="col-sm-3"><img src="{{ location.image }}" alt="{{ location.name }}" title="{{ location.name }}" class="img-thumbnail" /></div>
+                                        {% endif %}
+                                        <div class="col-sm-3"><strong>{{ location.name }}</strong><br />
+                                            <address>
+                                                {{ location.address }}
+                                            </address>
+                                            {% if location.geocode %}
+                                                <a href="https://maps.google.com/maps?q={{ location.geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="btn btn-info"><i class="fa fa-map-marker"></i> {{ button_map }}</a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-sm-3"> <strong>{{ text_telephone }}</strong><br>
+                                            {{ location.telephone }}<br />
+                                            <br />
+                                            {% if location.fax %}
+                                                <strong>{{ text_fax }}</strong><br>
+                                                {{ location.fax }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {% if location.open %}
+                                                <strong>{{ text_open }}</strong><br />
+                                                {{ location.open }}<br />
+                                                <br />
+                                            {% endif %}
+                                            {% if location.comment %}
+                                                <strong>{{ text_comment }}</strong><br />
+                                                {{ location.comment }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form action="{{ action }}" id="contact-form" method="post" enctype="multipart/form-data" class="form-horizontal">
+                <fieldset>
+                    <legend>{{ text_contact }}</legend>
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="name" value="{{ name }}" id="input-name" class="form-control" />
+                            {% if error_name %}
+                                <div class="text-danger">{{ error_name }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="email" value="{{ email }}" id="input-email" class="form-control" />
+                            {% if error_email %}
+                                <div class="text-danger">{{ error_email }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-enquiry">{{ entry_enquiry }}</label>
+                        <div class="col-sm-10">
+                            <textarea name="enquiry" rows="10" id="input-enquiry" class="form-control">{{ enquiry }}</textarea>
+                            {% if error_enquiry %}
+                                <div class="text-danger">{{ error_enquiry }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {{ captcha }}
+                </fieldset>
+                <div class="buttons">
+                    <div class="pull-right">
+                        <input type="submit" value="{{ button_submit }}" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+            {{ content_bottom }}</div>
+        {{ column_right }}</div>
+</div>
+<style type="text/css">
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 400px;
+        /* The height is 400 pixels */
+        width: 100%;
+        /* The width is the width of the web page */
+    }
+
+</style>
+<script type="text/javascript">
+    // Initialize and add the map
+    async function initMap() {
+        try {
+            // The location of Uluru
+            const uluru = { lat: -27.768671, lng: 153.1099252 };
+
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: uluru,
+                mapId: 'headstractor_map',
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            // Create an AdvancedMarkerElement instead of using the deprecated Marker
+            const marker = new google.maps.marker.AdvancedMarkerElement({
+                position: uluru,
+                map: map,
+            });
+        } catch (error) {
+            console.error('Error initializing Google Maps:', error);
+            document.getElementById('map').innerHTML = '<div class="alert alert-danger">Error loading Google Maps. Please check your API key configuration.</div>';
+        }
+    }
+
+    // Handle Google Maps loading errors
+    function handleMapError() {
+        document.getElementById('map').innerHTML = '<div class="alert alert-danger">Error loading Google Maps. Please check your API key configuration.</div>';
+    }
+
+    window.initMap = initMap;
+    window.gm_authFailure = handleMapError;
+
+    {# $(document).ready(function() {
+        // Define the text to search for
+        var searchText = 'Click "Submit" again to verify you are not a robot.';
+
+        // Find the div with class 'text-danger' that contains the text
+        var foundElement = $('.text-danger').filter(function() {
+            return $(this).text().trim() === searchText;
+        }).first();
+
+        // If the element is found, scroll to it
+        if (foundElement.length) {
+            $('html, body').animate({
+                scrollTop: foundElement.offset().top
+            }, 500); // Adjust the duration of the scrolling as needed
+        }
+    }); #}
+
+</script>
+
+<script src="https://www.google.com/recaptcha/api.js?render=6Lek3CcrAAAAACbiBuKgdvAsOY0OYzBHw3iMK0Xs"></script>
+<script>
+grecaptcha.ready(function() {
+    grecaptcha.execute('6Lek3CcrAAAAACbiBuKgdvAsOY0OYzBHw3iMK0Xs', {action: 'contact'}).then(function(token) {
+        var recaptchaResponse = document.createElement('input');
+        recaptchaResponse.setAttribute('type', 'hidden');
+        recaptchaResponse.setAttribute('name', 'g-recaptcha-response');
+        recaptchaResponse.setAttribute('value', token);
+        document.querySelector('form').appendChild(recaptchaResponse);
+    });
+});
+</script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWi4qm5sjX3WbpjFgQ06iS4ctc6L3pN-Y&callback=initMap&v=weekly&libraries=marker"
+        async
+        onerror="handleMapError()"
+></script>
+{{ footer }}
