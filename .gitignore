@@ -20,6 +20,9 @@ vqmod/vqcache/*
 vqmod/checked.cache
 vqmod/mods.cache
 
+# Large cache files
+*.cache
+
 # Environment files
 .env
 *.env
