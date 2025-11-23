@@ -27,6 +27,10 @@ vqmod/mods.cache
 .env
 *.env
 
+# Configuration files with secrets (use config-dist.php as template)
+config.php
+admin/config.php
+
 # IDE
 .idea/
 .vscode/

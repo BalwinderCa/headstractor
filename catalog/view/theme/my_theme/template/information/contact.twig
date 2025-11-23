@@ -209,10 +209,11 @@
 
 </script>
 
-<script src="https://www.google.com/recaptcha/api.js?render=6Lek3CcrAAAAACbiBuKgdvAsOY0OYzBHw3iMK0Xs"></script>
+{% if recaptcha_site_key %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
 <script>
 grecaptcha.ready(function() {
-    grecaptcha.execute('6Lek3CcrAAAAACbiBuKgdvAsOY0OYzBHw3iMK0Xs', {action: 'contact'}).then(function(token) {
+    grecaptcha.execute('{{ recaptcha_site_key }}', {action: 'contact'}).then(function(token) {
         var recaptchaResponse = document.createElement('input');
         recaptchaResponse.setAttribute('type', 'hidden');
         recaptchaResponse.setAttribute('name', 'g-recaptcha-response');
@@ -221,9 +222,17 @@ grecaptcha.ready(function() {
     });
 });
 </script>
+{% endif %}
+{% if google_maps_api_key %}
 <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWi4qm5sjX3WbpjFgQ06iS4ctc6L3pN-Y&callback=initMap&v=weekly&libraries=marker"
+        src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap&v=weekly&libraries=marker"
         async
         onerror="handleMapError()"
 ></script>
+{% else %}
+<script>
+    console.warn('Google Maps API key is not configured. Please set it in the admin panel.');
+    document.getElementById('map').innerHTML = '<div class="alert alert-warning">Google Maps is not configured. Please contact the administrator.</div>';
+</script>
+{% endif %}
 {{ footer }}

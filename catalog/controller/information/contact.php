@@ -144,6 +144,12 @@ class ControllerInformationContact extends Controller {
 			$data['captcha'] = '';
 		}
 
+		// Google Maps API key from config
+		$data['google_maps_api_key'] = $this->config->get('config_google_maps_api_key');
+		
+		// reCAPTCHA site key from config
+		$data['recaptcha_site_key'] = $this->config->get('config_recaptcha_site_key');
+
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
 		$data['content_top'] = $this->load->controller('common/content_top');
@@ -173,12 +179,12 @@ class ControllerInformationContact extends Controller {
 
 			if ($recaptcha_response) {
 				$verify_url = 'https://www.google.com/recaptcha/api/siteverify';
-				// Get secret key from configuration instead of hardcoding
+				// Get secret key from configuration
 				$secret_key = $this->config->get('config_recaptcha_secret_key');
                 
                 if (!$secret_key) {
-                    // Fallback to your key if not in config (but you should move this to config)
-                    $secret_key = '6Lek3CcrAAAAALFwWx4nbDD8cG0VxIyv5ueHCNW-';
+                    $this->error['captcha'] = 'reCAPTCHA is not properly configured. Please contact the administrator.';
+                    return !$this->error;
                 }
 
 				$recaptcha = file_get_contents($verify_url . '?secret=' . $secret_key . '&response=' . $recaptcha_response);
